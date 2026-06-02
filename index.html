@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>T-SHARE GROUPS</title>
+
+<style>
+body{
+  font-family:Arial;
+  margin:0;
+  background:linear-gradient(180deg,#f5f6fa,#eef1f8);
+  color:#222;
+}
+
+.wrap{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+
+h2{
+  text-align:center;
+  font-weight:800;
+}
+
+/* SECTION */
+.section{
+  margin-top:20px;
+  background:#fff;
+  padding:15px;
+  border-radius:14px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* TITLE */
+.section-title{
+  font-size:18px;
+  font-weight:700;
+  margin-bottom:12px;
+  padding-left:10px;
+  border-left:4px solid #6b4f9f;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:14px;
+}
+
+/* CARD */
+.card{
+  background:#fdfdfd;
+  padding:14px;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.05);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:120px;
+  transition:0.2s;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+}
+
+.price{
+  color:#6b4f9f;
+  font-weight:700;
+  margin-top:6px;
+}
+
+/* BUTTON */
+button{
+  padding:8px 12px;
+  border:0;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.btn{
+  background:linear-gradient(135deg,#6b4f9f,#8e6dd1);
+  color:#fff;
+}
+
+/* CART */
+.cart{
+  position:sticky;
+  bottom:10px;
+  margin-top:25px;
+  background:#fff;
+  padding:14px 16px;
+  border-radius:14px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+/* MODAL */
+.modal{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,0.6);
+ display:none;
+}
+
+.modal-box{
+ background:#fff;
+ padding:22px;
+ margin:2% auto;
+ width:95%;
+ max-width:800px;
+ border-radius:14px;
+ max-height:90vh;
+ overflow-y:auto;
+}
+
+.right-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:15px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+table td,table th{
+  padding:8px;
+  text-align:center;
+  border:1px solid #ddd;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+<h2>T-SHARE GROUPS</h2>
+
+<!-- BÀI TÂY -->
+<div class="section">
+  <div class="section-title">🂡 Bài Tây</div>
+  <div id="baiTay" class="grid"></div>
+</div>
+
+<!-- LENORMAND -->
+<div class="section">
+  <div class="section-title">🔮 Lenormand</div>
+  <div id="lenormand" class="grid"></div>
+</div>
+
+<!-- CART -->
+<div class="cart">
+  <h3 id="total">0k</h3>
+  <button onclick="checkout()" class="btn">Thanh toán</button>
+</div>
+
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+<div class="modal-box">
+
+<div id="invoice"></div>
+
+<div class="right-actions">
+  <button onclick="downloadPDF()">Xuất PDF</button>
+  <button onclick="closeModal()">Đóng</button>
+</div>
+
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+
+const products = [
+  // ===== BÀI TÂY =====
+  { sku:"SKU1",  name:"Bạn Bè Tương Lai", type:"bai_tay", price:55 },
+  { sku:"SKU2",  name:"Công Việc Hiện Tại", type:"bai_tay", price:30 },
+  { sku:"SKU3",  name:"Công Việc Tương Lai", type:"bai_tay", price:55 },
+  { sku:"SKU4",  name:"Học Tập Hiện Tại", type:"bai_tay", price:30 },
+  { sku:"SKU5",  name:"Học Tập Tương Lai", type:"bai_tay", price:55 },
+  { sku:"SKU6",  name:"Người Yêu Cũ Hiện Tại", type:"bai_tay", price:30 },
+  { sku:"SKU7",  name:"Người Yêu Hiện Tại", type:"bai_tay", price:30 },
+  { sku:"SKU8",  name:"Người Yêu Tương Lai", type:"bai_tay", price:55 },
+  { sku:"SKU9",  name:"Bạn Bè Hiện Tại", type:"bai_tay", price:30 },
+
+  // ===== TIME (BÀI TÂY) =====
+  { sku:"SKU10", name:"10 Phút", type:"bai_tay", price:20 },
+  { sku:"SKU11", name:"15 Phút", type:"bai_tay", price:30 },
+  { sku:"SKU12", name:"20 Phút", type:"bai_tay", price:35 },
+  { sku:"SKU13", name:"30 Phút", type:"bai_tay", price:40 },
+  { sku:"SKU14", name:"50 Phút", type:"bai_tay", price:45 },
+  { sku:"SKU15", name:"60 Phút", type:"bai_tay", price:55 },
+  { sku:"SKU16", name:"Tổng Quan Tháng", type:"bai_tay", price:70 },
+
+  // ===== LENORMAND =====
+  { sku:"SKU17", name:"Bạn Bè Hiện Tại", type:"lenormand", price:35 },
+  { sku:"SKU18", name:"Bạn Bè Tương Lai", type:"lenormand", price:60 },
+  { sku:"SKU19", name:"Công Việc Hiện Tại", type:"lenormand", price:35 },
+  { sku:"SKU20", name:"Công Việc Tương Lai", type:"lenormand", price:60 },
+  { sku:"SKU21", name:"Học Tập Hiện Tại", type:"lenormand", price:35 },
+  { sku:"SKU22", name:"Học Tập Tương Lai", type:"lenormand", price:60 },
+  { sku:"SKU23", name:"Người Yêu Cũ Hiện Tại", type:"lenormand", price:35 },
+  { sku:"SKU24", name:"Người Yêu Cũ Tương Lai", type:"lenormand", price:60 },
+  { sku:"SKU25", name:"Người Yêu Hiện Tại", type:"lenormand", price:35 },
+  { sku:"SKU26", name:"Người Yêu Tương Lai", type:"lenormand", price:60 },
+
+  // ===== HEALTH =====
+  { sku:"SKU27", name:"Sức Khoẻ Hiện Tại", type:"lenormand", price:85 },
+  { sku:"SKU28", name:"Sức Khoẻ Tương Lai", type:"lenormand", price:120 },
+
+  // ===== TIME (LENORMAND) =====
+  { sku:"SKU29", name:"10 Phút", type:"lenormand", price:30 },
+  { sku:"SKU30", name:"15 Phút", type:"lenormand", price:40 },
+  { sku:"SKU31", name:"20 Phút", type:"lenormand", price:45 },
+  { sku:"SKU32", name:"30 Phút", type:"lenormand", price:50 },
+  { sku:"SKU33", name:"40 Phút", type:"lenormand", price:55 },
+  { sku:"SKU34", name:"50 Phút", type:"lenormand", price:60 },
+  { sku:"SKU35", name:"60 Phút", type:"lenormand", price:65 }
+];
+
+// ===================== CART =====================
+let cart = JSON.parse(localStorage.getItem("cart")||"{}");
+function save(){localStorage.setItem("cart",JSON.stringify(cart))}
+
+// ===================== RENDER =====================
+function render(){
+  const baiTayBox=document.getElementById("baiTay");
+  const lenormandBox=document.getElementById("lenormand");
+
+  baiTayBox.innerHTML="";
+  lenormandBox.innerHTML="";
+
+  products.forEach(p=>{
+    const html=`
+    <div class="card">
+      <div>${p.name}</div>
+      <div class="price">${p.price}k</div>
+      <button class="btn" onclick="add('${p.sku}')">Chọn Ngay</button>
+    </div>`;
+
+    if(p.type==="bai_tay"){
+      baiTayBox.innerHTML+=html;
+    }else{
+      lenormandBox.innerHTML+=html;
+    }
+  });
+}
+render();
+
+// ===================== ADD =====================
+function add(sku){
+  if(!cart[sku]) cart[sku]={...products.find(p=>p.sku===sku),qty:0};
+  cart[sku].qty++;
+  save();
+  renderCart();
+}
+
+// ===================== CART =====================
+function renderCart(){
+  let total=0;
+  Object.values(cart).forEach(i=>{
+    total+=i.qty*i.price;
+  });
+  document.getElementById("total").innerText="Tổng: "+total+"k";
+}
+renderCart();
+
+// ===================== QR =====================
+function generateQR(total, orderId){
+ const amount = total * 1000;
+ return `https://img.vietqr.io/image/VCB-7876159680-compact.png?amount=${amount}&addInfo=DH${orderId}`;
+}
+
+// ===================== CHECKOUT =====================
+function checkout(){
+ if(Object.keys(cart).length===0){alert("Giỏ trống");return;}
+
+ const orderId=Date.now();
+ let total=0;
+ let rows="";
+
+ Object.values(cart).forEach(i=>{
+  total+=i.qty*i.price;
+  rows+=`
+  <tr>
+    <td>${i.name}</td>
+    <td>${i.qty}</td>
+    <td>${i.price}</td>
+    <td>${i.qty*i.price}</td>
+  </tr>`;
+ });
+
+ const qr=generateQR(total,orderId);
+
+ document.getElementById("invoice").innerHTML=`
+<div id="invoiceBox">
+
+<h2 style="text-align:center">HÓA ĐƠN</h2>
+
+<div>Mã: DH${orderId}</div>
+
+<hr>
+
+<table>
+<tr><th>SP</th><th>SL</th><th>Giá</th><th>Tiền</th></tr>
+${rows}
+</table>
+
+<h3 style="text-align:right">Tổng: ${total}k</h3>
+
+<div style="text-align:center;margin-top:20px">
+<img src="${qr}" width="220"/>
+</div>
+
+</div>`;
+
+ document.getElementById("modal").style.display="block";
+}
+
+// ===================== PDF =====================
+function downloadPDF(){
+ html2pdf().from(document.getElementById("invoiceBox")).save();
+}
+
+// ===================== CLOSE =====================
+function closeModal(){
+ document.getElementById("modal").style.display="none";
+ cart={};
+ save();
+ renderCart();
+}
+
+</script>
+
+</body>
+</html>
