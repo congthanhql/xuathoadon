@@ -33,7 +33,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--tx
 .hd-cart{background:var(--gold);color:#16100a;border:none;border-radius:99px;padding:8px 16px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;display:none;align-items:center;gap:6px;transition:background .15s}
 .hd-cart:active{background:var(--gold-l)}
 .cart-num{background:rgba(0,0,0,.2);border-radius:99px;padding:1px 7px;font-size:11px}
-.hd-admin-btn{background:none;border:1px solid var(--brd);color:var(--mu2);border-radius:99px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.4px;transition:all .15s}
+.hd-admin-btn{background:none;border:1px solid var(--brd);color:var(--mu2);border-radius:99px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.4px;transition:all .15s;white-space:nowrap}
 .hd-admin-btn:hover{border-color:var(--gold);color:var(--gold)}
 
 /* ── TABS ── */
@@ -166,6 +166,22 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--tx
 .fg input::placeholder{color:var(--mu)}
 .fg input:focus{outline:none;border-color:var(--gold)}
 
+/* MANUAL ORDER ROWS */
+.manual-cols-hd{display:grid;grid-template-columns:1fr 52px 72px 26px;gap:6px;margin-bottom:6px;padding:0 1px}
+.manual-cols-hd span{font-size:9px;font-weight:800;color:var(--mu);text-transform:uppercase;letter-spacing:.5px}
+.manual-cols-hd span:nth-child(2),.manual-cols-hd span:nth-child(3){text-align:center}
+.manual-row{display:grid;grid-template-columns:1fr 52px 72px 26px;gap:6px;align-items:center;margin-bottom:7px}
+.manual-row input{width:100%;padding:9px 9px;border:1px solid var(--brd);border-radius:var(--rs);font-size:13px;font-family:inherit;background:var(--card2);color:var(--tx);-webkit-appearance:none}
+.manual-row input::placeholder{color:var(--mu)}
+.manual-row input:focus{outline:none;border-color:var(--gold)}
+.manual-row input.qty,.manual-row input.price{text-align:center}
+.manual-del{background:none;border:none;cursor:pointer;color:var(--mu);font-size:14px;padding:4px;border-radius:6px;justify-self:center}
+.manual-del:hover{color:var(--red)}
+.manual-empty{font-size:12px;color:var(--mu);text-align:center;padding:16px 0}
+.manual-add-btn{width:100%;padding:10px;border-radius:var(--rs);border:1px dashed var(--gbrd);background:var(--gbg);color:var(--gold);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:2px;transition:background .15s}
+.manual-add-btn:hover{background:rgba(201,168,76,.16)}
+.manual-tag{display:inline-block;font-size:9px;font-weight:800;background:var(--gbg);border:1px solid var(--gbrd);color:var(--gold);border-radius:4px;padding:1px 6px;margin-left:5px;text-transform:uppercase;letter-spacing:.3px;vertical-align:middle}
+
 /* ── INVOICE ── */
 #invPrint{background:#18142a;padding:20px}
 .inv-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
@@ -280,6 +296,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--tx
   .admin-stats{grid-template-columns:1fr}
   .atbl-email,.atbl-items{display:none}
   .admin-content{padding:14px}
+  .hd-admin-btn{padding:6px 10px;font-size:10px}
 }
 @media(min-width:768px){
   .hd-cart{display:none}
@@ -311,6 +328,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--tx
         <div class="logo-sub">Trải Bài<br>Huyền Học</div>
       </div>
       <div class="hd-right">
+        <button class="hd-admin-btn" onclick="openManualOrder()">📝 Nhập đơn</button>
         <button class="hd-admin-btn" onclick="openAdminLogin()">⚙ Admin</button>
         <button class="hd-cart" onclick="openMobCart()">
           🛒 <span class="cart-num" id="hCartNum">0</span>
@@ -431,6 +449,35 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--tx
     </div>
     <div class="sh-foot">
       <button class="btn btn-gold" id="btnCreateInv" onclick="createInvoice()">Tạo Hóa Đơn & QR Thanh Toán →</button>
+    </div>
+  </div>
+
+  <!-- MANUAL ORDER SHEET -->
+  <div class="sheet" id="shManual">
+    <div class="sh-handle"></div>
+    <div class="sh-hd">
+      <div class="sh-title">📝 Nhập Đơn Hàng Thủ Công</div>
+      <button class="sh-close" onclick="closeSheet()">✕</button>
+    </div>
+    <div class="sh-body">
+      <div class="fg"><label>Họ và tên khách *</label><input id="mfName" placeholder="Nguyễn Văn A" autocomplete="name"/></div>
+      <div class="fg"><label>SĐT / Zalo <span style="color:var(--mu);font-weight:400">(nếu có)</span></label><input id="mfPhone" placeholder="0876 159 680" type="tel" autocomplete="tel"/></div>
+      <div class="fg"><label>Gmail <span style="color:var(--mu);font-weight:400">(nếu có)</span></label><input id="mfEmail" placeholder="email@gmail.com" type="email" autocomplete="email"/></div>
+      <div class="fg">
+        <label>Dịch vụ / Sản phẩm <span style="color:var(--mu);font-weight:400">(ngoài danh sách có sẵn)</span></label>
+        <div class="manual-cols-hd">
+          <span>Tên dịch vụ</span><span>SL</span><span>Giá (k)</span><span></span>
+        </div>
+        <div id="manualItemsList"></div>
+        <button class="manual-add-btn" onclick="addManualItem()">+ Thêm dịch vụ</button>
+      </div>
+      <div class="tot" style="margin-top:16px">
+        <span class="tot-lbl">Tổng thanh toán</span>
+        <span class="tot-val" id="manualTot">0k</span>
+      </div>
+    </div>
+    <div class="sh-foot">
+      <button class="btn btn-gold" onclick="createManualInvoice()">Tạo Hóa Đơn & QR Thanh Toán →</button>
     </div>
   </div>
 
@@ -751,15 +798,73 @@ function closeSheet(){
 }
 function ovClick(e){if(e.target===e.currentTarget)closeSheet();}
 
-// ── CREATE INVOICE + SAVE TO FIREBASE ──
-async function createInvoice(){
-  const name=document.getElementById('fName').value.trim();
-  if(!name){document.getElementById('fName').focus();document.getElementById('fName').style.borderColor='#e05c5c';return;}
-  document.getElementById('fName').style.borderColor='';
-  const phone=document.getElementById('fPhone').value.trim();
-  const email=document.getElementById('fEmail').value.trim();
-  const items=Object.values(cart);
-  const tot=total();
+// ══════════════════════════════════════════
+// MANUAL ORDER ENTRY (services not in catalog)
+// ══════════════════════════════════════════
+let manualItems=[];
+
+function openManualOrder(){
+  manualItems=[{name:'',qty:1,price:0}];
+  document.getElementById('mfName').value='';
+  document.getElementById('mfPhone').value='';
+  document.getElementById('mfEmail').value='';
+  document.getElementById('mfName').style.borderColor='';
+  renderManualItems();
+  showSheet('shManual');
+}
+
+function renderManualItems(){
+  const wrap=document.getElementById('manualItemsList');
+  if(!manualItems.length){
+    wrap.innerHTML=`<div class="manual-empty">Chưa có dịch vụ nào, bấm "+ Thêm dịch vụ" để bắt đầu</div>`;
+  } else {
+    wrap.innerHTML=manualItems.map((it,idx)=>`
+      <div class="manual-row">
+        <input type="text" placeholder="Tên dịch vụ" value="${it.name||''}" oninput="updManualField(${idx},'name',this.value)"/>
+        <input class="qty" type="number" min="1" step="1" placeholder="SL" value="${it.qty}" oninput="updManualField(${idx},'qty',this.value)"/>
+        <input class="price" type="number" min="0" step="1" placeholder="Giá" value="${it.price}" oninput="updManualField(${idx},'price',this.value)"/>
+        <button class="manual-del" onclick="removeManualItem(${idx})">✕</button>
+      </div>`).join('');
+  }
+  updateManualTotal();
+}
+
+function updManualField(idx,key,val){
+  if(!manualItems[idx])return;
+  manualItems[idx][key]=(key==='name')?val:(Number(val)||0);
+  updateManualTotal();
+}
+
+function addManualItem(){manualItems.push({name:'',qty:1,price:0});renderManualItems();}
+function removeManualItem(idx){manualItems.splice(idx,1);renderManualItems();}
+
+function updateManualTotal(){
+  const t=manualItems.reduce((s,i)=>s+(Number(i.qty)||0)*(Number(i.price)||0),0);
+  document.getElementById('manualTot').textContent=t+'k';
+}
+
+async function createManualInvoice(){
+  const name=document.getElementById('mfName').value.trim();
+  if(!name){document.getElementById('mfName').focus();document.getElementById('mfName').style.borderColor='#e05c5c';return;}
+  document.getElementById('mfName').style.borderColor='';
+  const phone=document.getElementById('mfPhone').value.trim();
+  const email=document.getElementById('mfEmail').value.trim();
+
+  const items=manualItems
+    .filter(i=>i.name && i.name.trim() && (Number(i.qty)||0)>0)
+    .map(i=>({sku:'MANUAL',name:i.name.trim(),qty:Number(i.qty)||1,price:Number(i.price)||0,type:'manual',typeLabel:'Nhập tay',icon:'📝'}));
+
+  if(!items.length){
+    alert('Vui lòng nhập ít nhất 1 dịch vụ hợp lệ (có tên và số lượng > 0).');
+    return;
+  }
+
+  await finalizeOrder(items,name,phone,email);
+}
+
+// ── SHARED: BUILD + SAVE + SHOW INVOICE ──
+async function finalizeOrder(items,name,phone,email){
+  const tot=items.reduce((s,i)=>s+i.qty*i.price,0);
   const orderId='DH'+Date.now().toString().slice(-8);
   const now=new Date();
   const dateStr=now.toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric'});
@@ -776,7 +881,7 @@ async function createInvoice(){
         name,
         phone:phone||'',
         email:email||'',
-        items:items.map(i=>({sku:i.sku,name:i.name,qty:i.qty,price:i.price,type:i.type,typeLabel:DATA[i.type]?.label||''})),
+        items:items.map(i=>({sku:i.sku,name:i.name,qty:i.qty,price:i.price,type:i.type,typeLabel:DATA[i.type]?.label||i.typeLabel||''})),
         total:tot,
         totalVND:amtVND,
         status:'pending',
@@ -793,7 +898,7 @@ async function createInvoice(){
 
   let rows=items.map((it,i)=>`
     <tr>
-      <td>${i+1}. ${it.name}<br><span style="font-size:10px;color:#6e6358">${DATA[it.type]?.label} · ${it.sku}</span></td>
+      <td>${i+1}. ${it.name}<br><span style="font-size:10px;color:#6e6358">${DATA[it.type]?.label||it.typeLabel||''} · ${it.sku}</span></td>
       <td style="text-align:center">${it.qty}</td>
       <td class="gd">${it.price}k</td>
       <td class="gd">${it.qty*it.price}k</td>
@@ -845,6 +950,19 @@ async function createInvoice(){
     </div>`;
 
   showSheet('shInv');
+}
+
+// ── CREATE INVOICE FROM CART (validates + clears cart after) ──
+async function createInvoice(){
+  const name=document.getElementById('fName').value.trim();
+  if(!name){document.getElementById('fName').focus();document.getElementById('fName').style.borderColor='#e05c5c';return;}
+  document.getElementById('fName').style.borderColor='';
+  const phone=document.getElementById('fPhone').value.trim();
+  const email=document.getElementById('fEmail').value.trim();
+  const items=Object.values(cart);
+
+  await finalizeOrder(items,name,phone,email);
+
   cart={};save();syncAll();renderSidebar();renderMobCart();
 }
 
@@ -972,11 +1090,12 @@ function renderAdminTable(){
   orders.forEach((o,i)=>{
     const dt=o.createdAt?new Date(o.createdAt).toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'—';
     const isPaid=o.status==='paid';
+    const isManual=(o.items&&o.items[0]&&o.items[0].type==='manual');
     const itemsSummary=(o.items||[]).map(it=>`<span>${it.name}</span>`).join('');
     rows+=`
       <tr style="cursor:pointer" onclick="toggleDetail('${o._key}')">
         <td>
-          <div class="atbl-name">${o.name||'—'}</div>
+          <div class="atbl-name">${o.name||'—'}${isManual?'<span class="manual-tag">Thủ công</span>':''}</div>
           <div class="atbl-id">#${o.orderId||'—'}</div>
         </td>
         <td>
