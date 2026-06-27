@@ -12,110 +12,111 @@
   --gbg:rgba(201,168,76,.09);--gbrd:rgba(201,168,76,.22);
   --tx:#f0e9d6;--mu:#6e6358;--mu2:#9e8e7a;
   --bg:#0d0b18;--card:#171327;--card2:#1e1a2e;--brd:#252035;
-  --red:#e05c5c;
-  --r:14px;--rs:10px;
+  --red:#e05c5c;--green:#4caf7d;
+  --r:12px;--rs:8px;
+  --sb:320px;
 }
 html,body{height:100%;overflow:hidden}
 body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--tx)}
 
-/* ══ LAYOUT ══ */
-.app{display:flex;height:100vh;width:100%;overflow:hidden}
-.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+/* ── PAGES ── */
+#page-main{display:flex;height:100vh;max-width:1280px;margin:0 auto}
+#page-admin{display:none;height:100vh;flex-direction:column;background:var(--bg)}
 
-/* ══ HEADER ══ */
-.hd{background:var(--card);border-bottom:1px solid var(--brd);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:10px}
-.logo{display:flex;align-items:center;gap:12px}
-.logo-name{font-family:'Playfair Display',serif;font-size:26px;color:var(--gold);letter-spacing:.5px}
-.logo-div{width:1px;height:28px;background:var(--brd)}
-.logo-sub{font-size:11px;font-weight:700;color:var(--mu2);text-transform:uppercase;letter-spacing:1.6px;line-height:1.6}
-.hd-cart{background:var(--gold);color:#16100a;border:none;border-radius:99px;padding:10px 20px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;display:none;align-items:center;gap:6px;transition:background .15s}
+/* ── HEADER ── */
+.hd{background:var(--card);border-bottom:1px solid var(--brd);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:10px}
+.logo{display:flex;align-items:center;gap:9px}
+.logo-name{font-family:'Playfair Display',serif;font-size:21px;color:var(--gold)}
+.logo-div{width:1px;height:22px;background:var(--brd)}
+.logo-sub{font-size:10px;font-weight:600;color:var(--mu2);text-transform:uppercase;letter-spacing:1.3px;line-height:1.5}
+.hd-right{display:flex;align-items:center;gap:8px}
+.hd-cart{background:var(--gold);color:#16100a;border:none;border-radius:99px;padding:8px 16px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;display:none;align-items:center;gap:6px;transition:background .15s}
 .hd-cart:active{background:var(--gold-l)}
-.cart-num{background:rgba(0,0,0,.2);border-radius:99px;padding:2px 8px;font-size:12px}
+.cart-num{background:rgba(0,0,0,.2);border-radius:99px;padding:1px 7px;font-size:11px}
+.hd-admin-btn{background:none;border:1px solid var(--brd);color:var(--mu2);border-radius:99px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.4px;transition:all .15s}
+.hd-admin-btn:hover{border-color:var(--gold);color:var(--gold)}
 
-/* ══ TABS ══ */
-.tabs{display:flex;background:var(--card);border-bottom:1px solid var(--brd);padding:0 16px;gap:4px;flex-shrink:0;overflow-x:auto;scrollbar-width:none}
+/* ── TABS ── */
+.tabs{display:flex;background:var(--card);border-bottom:1px solid var(--brd);padding:0 10px;gap:2px;flex-shrink:0;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{padding:14px 18px;font-size:13px;font-weight:700;color:var(--mu);border:none;background:none;cursor:pointer;font-family:inherit;border-bottom:2.5px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;text-transform:uppercase;letter-spacing:.8px;display:flex;align-items:center;gap:6px}
+.tab{padding:11px 13px;font-size:12px;font-weight:700;color:var(--mu);border:none;background:none;cursor:pointer;font-family:inherit;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;text-transform:uppercase;letter-spacing:.6px;display:flex;align-items:center;gap:5px}
 .tab.on{color:var(--gold);border-bottom-color:var(--gold)}
 .tab:hover:not(.on){color:var(--mu2)}
 
-/* ══ CONTENT ══ */
-.content{flex:1;overflow-y:auto;padding:20px 24px 28px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--brd) transparent}
-.content::-webkit-scrollbar{width:4px}
+/* ── MAIN LAYOUT ── */
+.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.content{flex:1;overflow-y:auto;padding:14px 16px 20px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--brd) transparent}
+.content::-webkit-scrollbar{width:3px}
 .content::-webkit-scrollbar-thumb{background:var(--brd);border-radius:99px}
 
-/* ══ GROUP LABEL ══ */
-.grp{display:flex;align-items:center;gap:10px;margin:22px 0 12px;padding:0 1px}
+/* ── GROUP LABEL ── */
+.grp{display:flex;align-items:center;gap:8px;margin:18px 0 10px;padding:0 1px}
 .grp:first-child{margin-top:0}
-.grp-name{font-family:'Playfair Display',serif;font-size:15px;color:var(--gold);white-space:nowrap}
+.grp-name{font-family:'Playfair Display',serif;font-size:13px;color:var(--gold);white-space:nowrap}
 .grp-line{flex:1;height:1px;background:var(--brd)}
-.grp-tag{font-size:10px;font-weight:700;padding:3px 11px;border-radius:99px;border:1px solid var(--gbrd);color:var(--gold);white-space:nowrap;text-transform:uppercase;letter-spacing:.5px}
+.grp-tag{font-size:10px;font-weight:700;padding:2px 9px;border-radius:99px;border:1px solid var(--gbrd);color:var(--gold);white-space:nowrap;text-transform:uppercase;letter-spacing:.4px}
 
-/* ══ PRODUCT GRID (desktop) ══ */
-.prod-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.prod-row{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:18px 16px;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:border-color .15s,transform .15s,box-shadow .15s;position:relative;overflow:hidden}
-.prod-row:hover{border-color:var(--gbrd);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.35)}
-.prod-row:active{transform:scale(.98)}
-.prod-row::after{content:'';position:absolute;inset:0;background:var(--gold);opacity:0;transition:opacity .1s;pointer-events:none}
-.prod-row.flash::after{opacity:.06}
-.prod-row-top{display:flex;align-items:center;justify-content:space-between}
-.prod-ico{font-size:26px;flex-shrink:0}
-.prod-info{flex:1}
-.prod-name{font-size:15px;font-weight:600;color:var(--tx);line-height:1.4;margin-bottom:4px}
-.prod-price{font-size:16px;font-weight:800;color:var(--gold)}
-.btn-add{width:36px;height:36px;border-radius:10px;background:var(--gbg);border:1px solid var(--gbrd);font-size:22px;font-weight:700;color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .12s,transform .1s;line-height:1}
-.btn-add:active{transform:scale(.82)}
-.btn-add.ok{background:var(--gold)!important;color:#16100a!important;border-color:var(--gold)!important;font-size:16px!important}
-.qty-dot{display:inline-flex;align-items:center;justify-content:center;background:var(--gold);color:#16100a;border-radius:99px;font-size:11px;font-weight:800;padding:2px 8px;margin-left:6px;vertical-align:middle}
+/* ── PRODUCTS ── */
+.prod-list{display:flex;flex-direction:column;border-radius:var(--r);overflow:hidden;border:1px solid var(--brd)}
+.prod-row{background:var(--card);padding:13px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:background .1s;border-bottom:1px solid var(--brd);position:relative;overflow:hidden}
+.prod-row:last-child{border-bottom:none}
+.prod-row:active{background:var(--card2)}
+.prod-ico{font-size:18px;flex-shrink:0;width:28px;text-align:center}
+.prod-info{flex:1;min-width:0}
+.prod-name{font-size:14px;font-weight:500;color:var(--tx);line-height:1.3}
+.prod-price{font-size:13px;font-weight:700;color:var(--gold);margin-top:2px}
+.btn-add{width:32px;height:32px;border-radius:9px;background:var(--gbg);border:1px solid var(--gbrd);font-size:20px;font-weight:700;color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .12s,transform .1s;line-height:1}
+.btn-add:active{transform:scale(.85)}
+.btn-add.ok{background:var(--gold)!important;color:#16100a!important;border-color:var(--gold)!important;font-size:15px!important}
+.qty-dot{display:inline-flex;align-items:center;justify-content:center;background:var(--gold);color:#16100a;border-radius:99px;font-size:10px;font-weight:800;padding:1px 6px;margin-left:5px;vertical-align:middle}
 
-/* ══ TIME GRID ══ */
-.time-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:9px}
-.time-card{background:var(--card);border:1px solid var(--brd);border-radius:var(--rs);padding:14px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color .15s,transform .15s;gap:8px}
-.time-card:hover{border-color:var(--gbrd);transform:translateY(-1px)}
-.time-card:active{transform:scale(.97)}
-.time-dur{font-size:14px;font-weight:700;color:var(--tx)}
-.time-p{font-size:14px;font-weight:800;color:var(--gold)}
-.time-card .btn-add{width:32px;height:32px;font-size:19px}
+/* ── TIME GRID ── */
+.time-wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.time-card{background:var(--card);border:1px solid var(--brd);border-radius:var(--rs);padding:11px 12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:background .1s,border-color .15s;gap:6px}
+.time-card:active{background:var(--card2)}
+.time-card:hover{border-color:var(--gbrd)}
+.time-dur{font-size:13px;font-weight:600;color:var(--tx)}
+.time-p{font-size:13px;font-weight:700;color:var(--gold)}
+.time-card .btn-add{width:28px;height:28px;font-size:17px;flex-shrink:0}
 
-/* ══ NOTE ══ */
-.note{margin:18px 0 6px;background:var(--gbg);border:1px solid var(--gbrd);border-radius:var(--rs);padding:13px 16px;font-size:13px;color:var(--mu2);line-height:1.7}
+/* ── NOTE ── */
+.note{margin:16px 0 6px;background:var(--gbg);border:1px solid var(--gbrd);border-radius:var(--rs);padding:11px 13px;font-size:12px;color:var(--mu2);line-height:1.65}
 .note strong{color:var(--gold)}
 
-/* ══ SIDEBAR ══ */
-.sidebar{width:360px;flex-shrink:0;background:var(--card);border-left:1px solid var(--brd);display:flex;flex-direction:column;overflow:hidden}
-.sb-hd{padding:18px 20px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.sb-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--tx)}
-.sb-clear{background:none;border:1px solid var(--brd);color:var(--mu2);border-radius:99px;padding:5px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:border-color .15s,color .15s}
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sb);flex-shrink:0;background:var(--card);border-left:1px solid var(--brd);display:flex;flex-direction:column;overflow:hidden}
+.sb-hd{padding:15px 16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.sb-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--tx)}
+.sb-clear{background:none;border:1px solid var(--brd);color:var(--mu2);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
 .sb-clear:hover{border-color:var(--red);color:var(--red)}
-.sb-body{flex:1;overflow-y:auto;padding:12px 18px;scrollbar-width:thin;scrollbar-color:var(--brd) transparent}
+.sb-body{flex:1;overflow-y:auto;padding:10px 14px;scrollbar-width:thin;scrollbar-color:var(--brd) transparent}
 .sb-body::-webkit-scrollbar{width:3px}
-.sb-body::-webkit-scrollbar-thumb{background:var(--brd);border-radius:99px}
-.sb-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:var(--mu);text-align:center;padding:20px}
-.sb-empty-ico{font-size:42px;opacity:.3;margin-bottom:6px}
-.sb-empty-txt{font-size:14px;line-height:1.7;color:var(--mu2)}
-.sb-foot{padding:14px 18px 20px;border-top:1px solid var(--brd);flex-shrink:0}
+.sb-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:10px;color:var(--mu);text-align:center;padding:20px}
+.sb-empty-ico{font-size:36px;opacity:.35;margin-bottom:4px}
+.sb-empty-txt{font-size:13px;line-height:1.65;color:var(--mu2)}
+.sb-foot{padding:12px 14px 16px;border-top:1px solid var(--brd);flex-shrink:0}
 
 /* CART ITEM */
-.ci{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--brd)}
+.ci{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--brd)}
 .ci:last-child{border-bottom:none}
 .ci-inf{flex:1;min-width:0}
-.ci-name{font-size:14px;font-weight:600;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ci-meta{font-size:11px;color:var(--mu);margin-top:2px}
-.ci-ctrl{display:flex;align-items:center;gap:5px}
-.ci-b{width:27px;height:27px;border-radius:7px;border:1px solid var(--brd);background:var(--card2);font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gold);transition:background .1s}
+.ci-name{font-size:13px;font-weight:600;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ci-meta{font-size:11px;color:var(--mu);margin-top:1px}
+.ci-ctrl{display:flex;align-items:center;gap:4px}
+.ci-b{width:24px;height:24px;border-radius:6px;border:1px solid var(--brd);background:var(--card2);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gold)}
 .ci-b:hover{background:var(--gbg)}
-.ci-q{font-size:14px;font-weight:800;min-width:20px;text-align:center;color:var(--tx)}
-.ci-pr{font-size:14px;font-weight:700;color:var(--gold);min-width:46px;text-align:right}
-.ci-del{background:none;border:none;cursor:pointer;color:var(--mu);font-size:14px;padding:5px;border-radius:6px;transition:color .1s}
+.ci-q{font-size:13px;font-weight:800;min-width:18px;text-align:center;color:var(--tx)}
+.ci-pr{font-size:13px;font-weight:700;color:var(--gold);min-width:42px;text-align:right}
+.ci-del{background:none;border:none;cursor:pointer;color:var(--mu);font-size:13px;padding:4px;border-radius:6px}
 .ci-del:hover{color:var(--red)}
 
 /* TOTAL */
-.tot{display:flex;justify-content:space-between;align-items:center;background:var(--gbg);border:1px solid var(--gbrd);border-radius:var(--rs);padding:14px 16px;margin-bottom:12px}
-.tot-lbl{font-size:13px;font-weight:700;color:var(--mu2);text-transform:uppercase;letter-spacing:.6px}
-.tot-val{font-family:'Playfair Display',serif;font-size:26px;color:var(--gold)}
+.tot{display:flex;justify-content:space-between;align-items:center;background:var(--gbg);border:1px solid var(--gbrd);border-radius:var(--rs);padding:12px 14px;margin-bottom:10px}
+.tot-lbl{font-size:12px;font-weight:600;color:var(--mu2);text-transform:uppercase;letter-spacing:.5px}
+.tot-val{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold)}
 
-/* ══ BUTTONS ══ */
-.btn{width:100%;padding:15px;border-radius:var(--r);border:none;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;transition:opacity .2s,transform .12s}
+/* ── BUTTONS ── */
+.btn{width:100%;padding:13px;border-radius:var(--r);border:none;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;transition:opacity .2s,transform .12s}
 .btn-gold{background:var(--gold);color:#16100a}
 .btn-gold:hover{background:var(--gold-l)}
 .btn-gold:active{transform:scale(.98)}
@@ -123,160 +124,269 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--tx
 .btn-ghost{background:var(--card2);color:var(--mu2);border:1px solid var(--brd)}
 .btn-ghost:hover{border-color:var(--mu)}
 
-/* ══ MOBILE BOTTOM NAV ══ */
+/* ── MOBILE BOTTOM NAV ── */
 .mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--brd);z-index:100;padding-bottom:env(safe-area-inset-bottom,0)}
 .mob-nav-row{display:flex}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 4px 8px;border:none;background:none;cursor:pointer;font-family:inherit;color:var(--mu);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;gap:3px;transition:color .15s;position:relative}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;padding:9px 4px 7px;border:none;background:none;cursor:pointer;font-family:inherit;color:var(--mu);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;gap:3px;transition:color .15s;position:relative}
 .nav-btn.on{color:var(--gold)}
-.nav-ico{font-size:21px;line-height:1}
-.nav-badge{position:absolute;top:5px;right:calc(50% - 22px);background:var(--gold);color:#16100a;border-radius:99px;min-width:17px;height:17px;font-size:9px;font-weight:800;display:none;align-items:center;justify-content:center;padding:0 4px}
+.nav-ico{font-size:19px;line-height:1}
+.nav-badge{position:absolute;top:5px;right:calc(50% - 20px);background:var(--gold);color:#16100a;border-radius:99px;min-width:16px;height:16px;font-size:9px;font-weight:800;display:none;align-items:center;justify-content:center;padding:0 4px}
 .nav-badge.on{display:flex}
 
-/* ══ MOBILE CART DRAWER ══ */
+/* ── MOBILE CART DRAWER ── */
 .mob-drawer{position:fixed;inset:0;z-index:300;display:flex;flex-direction:column;background:var(--bg);transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1)}
 .mob-drawer.open{transform:translateY(0)}
-.mob-drawer-hd{background:var(--card);padding:16px 18px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.mob-drawer-title{font-family:'Playfair Display',serif;font-size:19px;color:var(--tx)}
-.mob-drawer-back{display:flex;align-items:center;gap:6px;background:none;border:1px solid var(--brd);color:var(--mu2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;padding:6px 14px;border-radius:99px}
-.mob-drawer-back:active{background:var(--card2)}
-.mob-cart-list{flex:1;overflow-y:auto;padding:14px 18px;-webkit-overflow-scrolling:touch}
+.mob-drawer-hd{background:var(--card);padding:14px 16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.mob-drawer-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--tx)}
+.mob-drawer-back{display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--mu2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;padding:6px 12px;border-radius:99px;border:1px solid var(--brd)}
+.mob-cart-list{flex:1;overflow-y:auto;padding:12px 16px;-webkit-overflow-scrolling:touch}
 .mob-cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:var(--mu);text-align:center}
-.mob-cart-empty-ico{font-size:52px;opacity:.3}
-.mob-cart-foot{padding:14px 18px calc(14px + env(safe-area-inset-bottom,0));background:var(--card);border-top:1px solid var(--brd);flex-shrink:0}
+.mob-cart-empty-ico{font-size:48px;opacity:.3}
+.mob-cart-foot{padding:12px 16px calc(12px + env(safe-area-inset-bottom,0));background:var(--card);border-top:1px solid var(--brd);flex-shrink:0}
 
-/* ══ OVERLAY + SHEETS ══ */
-.ov{position:fixed;inset:0;background:rgba(6,4,18,.88);backdrop-filter:blur(6px);z-index:400;display:none;align-items:flex-end;justify-content:center}
+/* ── OVERLAY + SHEETS ── */
+.ov{position:fixed;inset:0;background:rgba(6,4,18,.85);backdrop-filter:blur(5px);z-index:400;display:none;align-items:flex-end;justify-content:center}
 .ov.on{display:flex}
-.sheet{background:var(--card);border-radius:22px 22px 0 0;width:100%;max-width:560px;max-height:93vh;display:none;flex-direction:column;animation:up .24s ease;border-top:1px solid var(--brd)}
+.sheet{background:var(--card);border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:93vh;display:none;flex-direction:column;animation:up .24s ease;border-top:1px solid var(--brd)}
 .sheet.on{display:flex}
 @keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.sh-handle{width:36px;height:4px;border-radius:99px;background:var(--brd);margin:12px auto 0;flex-shrink:0}
-.sh-hd{padding:16px 20px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.sh-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--tx)}
-.sh-close{background:var(--card2);border:1px solid var(--brd);width:30px;height:30px;border-radius:99px;font-size:14px;cursor:pointer;color:var(--mu2);display:flex;align-items:center;justify-content:center;transition:color .1s}
-.sh-close:hover{color:var(--tx)}
-.sh-body{flex:1;overflow-y:auto;padding:16px 20px}
+.sh-handle{width:32px;height:3px;border-radius:99px;background:var(--brd);margin:10px auto 0;flex-shrink:0}
+.sh-hd{padding:14px 16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.sh-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--tx)}
+.sh-close{background:var(--card2);border:1px solid var(--brd);width:28px;height:28px;border-radius:99px;font-size:13px;cursor:pointer;color:var(--mu2);display:flex;align-items:center;justify-content:center}
+.sh-body{flex:1;overflow-y:auto;padding:14px 16px}
 .sh-body::-webkit-scrollbar{width:3px}
 .sh-body::-webkit-scrollbar-thumb{background:var(--brd);border-radius:99px}
-.sh-foot{padding:12px 20px 22px;border-top:1px solid var(--brd);flex-shrink:0}
+.sh-foot{padding:10px 16px 20px;border-top:1px solid var(--brd);flex-shrink:0}
 
 /* FORM */
-.fg{margin-bottom:14px}
-.fg label{font-size:11px;font-weight:800;color:var(--mu);display:block;margin-bottom:6px;text-transform:uppercase;letter-spacing:.6px}
-.fg input{width:100%;padding:13px 15px;border:1px solid var(--brd);border-radius:var(--rs);font-size:15px;font-family:inherit;background:var(--card2);color:var(--tx);transition:border-color .2s;-webkit-appearance:none}
+.fg{margin-bottom:12px}
+.fg label{font-size:11px;font-weight:700;color:var(--mu);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.fg input{width:100%;padding:11px 13px;border:1px solid var(--brd);border-radius:var(--rs);font-size:14px;font-family:inherit;background:var(--card2);color:var(--tx);transition:border-color .2s;-webkit-appearance:none}
 .fg input::placeholder{color:var(--mu)}
 .fg input:focus{outline:none;border-color:var(--gold)}
 
-/* ══ INVOICE ══ */
-#invPrint{background:#18142a;padding:22px}
-.inv-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+/* ── INVOICE ── */
+#invPrint{background:#18142a;padding:20px}
+.inv-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
 .inv-brand{font-family:'Playfair Display',serif}
-.inv-brand-name{font-size:24px;color:var(--gold)}
-.inv-brand-sub{font-size:10px;font-weight:700;color:var(--mu2);text-transform:uppercase;letter-spacing:1.4px;margin-top:4px;font-family:'Be Vietnam Pro',sans-serif}
-.inv-id{font-size:18px;font-weight:800;color:var(--tx);text-align:right}
+.inv-brand-name{font-size:22px;color:var(--gold)}
+.inv-brand-sub{font-size:10px;font-weight:600;color:var(--mu2);text-transform:uppercase;letter-spacing:1.2px;margin-top:3px;font-family:'Be Vietnam Pro',sans-serif}
+.inv-id{font-size:17px;font-weight:800;color:var(--tx);text-align:right}
 .inv-dt{font-size:11px;color:var(--mu);text-align:right;margin-top:3px}
-.inv-status{display:inline-block;margin-top:7px;background:var(--gbg);border:1px solid var(--gbrd);border-radius:99px;padding:4px 14px;font-size:10px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.6px}
-.inv-div{height:1px;background:var(--brd);margin:16px 0;position:relative}
-.inv-div::before{content:'✦';position:absolute;left:50%;transform:translateX(-50%) translateY(-50%);background:#18142a;padding:0 10px;font-size:11px;color:var(--gold)}
-.inv-cust{background:#201c30;border:1px solid var(--brd);border-radius:var(--rs);padding:13px 16px;margin-bottom:16px}
-.ic-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0}
-.ic-lbl{font-size:10px;font-weight:800;color:var(--mu);text-transform:uppercase;letter-spacing:.5px}
-.ic-val{font-size:14px;font-weight:600;color:var(--tx)}
-.inv-tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px}
-.inv-tbl th{padding:8px 9px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--mu);border-bottom:1px solid var(--brd)}
+.inv-status{display:inline-block;margin-top:6px;background:var(--gbg);border:1px solid var(--gbrd);border-radius:99px;padding:3px 12px;font-size:10px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
+.inv-div{height:1px;background:var(--brd);margin:14px 0;position:relative}
+.inv-div::before{content:'✦';position:absolute;left:50%;transform:translateX(-50%) translateY(-50%);background:#18142a;padding:0 8px;font-size:10px;color:var(--gold)}
+.inv-cust{background:#201c30;border:1px solid var(--brd);border-radius:var(--rs);padding:11px 14px;margin-bottom:14px}
+.ic-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0}
+.ic-lbl{font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.5px}
+.ic-val{font-size:13px;font-weight:600;color:var(--tx)}
+.inv-tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:14px}
+.inv-tbl th{padding:7px 8px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--mu);border-bottom:1px solid var(--brd)}
 .inv-tbl th:first-child{text-align:left}
 .inv-tbl th:not(:first-child){text-align:right}
-.inv-tbl td{padding:9px 9px;border-bottom:1px solid var(--brd);color:var(--tx)}
+.inv-tbl td{padding:8px 8px;border-bottom:1px solid var(--brd);color:var(--tx)}
 .inv-tbl td:not(:first-child){text-align:right;font-weight:700}
 .inv-tbl .gd{color:var(--gold)}
 .inv-tbl tbody tr:last-child td{border-bottom:none}
-.inv-tot{background:var(--gbg);border:1px solid var(--gbrd);border-radius:var(--rs);padding:14px 17px;display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.inv-tot-lbl{font-size:12px;font-weight:700;color:var(--mu2);text-transform:uppercase;letter-spacing:.5px}
-.inv-tot-val{font-family:'Playfair Display',serif;font-size:28px;color:var(--gold)}
-.qr-wrap{border:1px solid var(--gbrd);border-radius:var(--r);padding:20px 18px;text-align:center;background:#1e1a2e}
-.qr-label{font-size:11px;font-weight:800;color:var(--mu2);text-transform:uppercase;letter-spacing:1px;margin-bottom:15px}
-.qr-img-box{display:inline-block;background:#fff;padding:10px;border-radius:12px;margin-bottom:12px;line-height:0}
-.qr-img-box img{display:block!important;width:200px!important;height:200px!important;object-fit:contain}
-.qr-amt{display:inline-block;background:var(--gold);color:#16100a;border-radius:99px;padding:6px 22px;font-size:16px;font-weight:800;margin-bottom:13px}
-.qr-info{font-size:12px;color:var(--mu);line-height:2}
+.inv-tot{background:var(--gbg);border:1px solid var(--gbrd);border-radius:var(--rs);padding:13px 15px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.inv-tot-lbl{font-size:11px;font-weight:700;color:var(--mu2);text-transform:uppercase;letter-spacing:.5px}
+.inv-tot-val{font-family:'Playfair Display',serif;font-size:26px;color:var(--gold)}
+.qr-wrap{border:1px solid var(--gbrd);border-radius:var(--r);padding:18px 16px;text-align:center;background:#1e1a2e}
+.qr-label{font-size:11px;font-weight:700;color:var(--mu2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
+.qr-amt{display:inline-block;background:var(--gold);color:#16100a;border-radius:99px;padding:5px 20px;font-size:15px;font-weight:800;margin-bottom:12px}
+.qr-info{font-size:12px;color:var(--mu);line-height:1.9}
 .qr-info strong{color:var(--mu2)}
-.inv-footer{margin-top:16px;background:var(--gbg);border:1px dashed var(--gbrd);border-radius:var(--rs);padding:12px 15px;font-size:11px;color:var(--mu);text-align:center;line-height:1.8}
+.inv-footer{margin-top:14px;background:var(--gbg);border:1px dashed var(--gbrd);border-radius:var(--rs);padding:11px 13px;font-size:11px;color:var(--mu);text-align:center;line-height:1.7}
 .inv-footer em{color:var(--gold);font-style:normal;font-weight:700}
 
-/* ══ RESPONSIVE ══ */
+/* ── ADMIN LOGIN OVERLAY ── */
+.admin-login-overlay{position:fixed;inset:0;background:rgba(6,4,18,.95);backdrop-filter:blur(10px);z-index:500;display:flex;align-items:center;justify-content:center}
+.admin-login-box{background:var(--card);border:1px solid var(--brd);border-radius:20px;padding:32px 28px;width:340px;max-width:90vw}
+.admin-login-logo{text-align:center;margin-bottom:24px}
+.admin-login-logo-name{font-family:'Playfair Display',serif;font-size:24px;color:var(--gold);display:block}
+.admin-login-logo-sub{font-size:11px;font-weight:600;color:var(--mu2);text-transform:uppercase;letter-spacing:1.2px;margin-top:4px;display:block}
+.admin-login-err{background:rgba(224,92,92,.12);border:1px solid rgba(224,92,92,.3);border-radius:var(--rs);padding:10px 13px;font-size:13px;color:var(--red);margin-bottom:14px;display:none}
+
+/* ── ADMIN PAGE ── */
+.admin-hd{background:var(--card);border-bottom:1px solid var(--brd);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.admin-hd-left{display:flex;align-items:center;gap:12px}
+.admin-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold)}
+.admin-badge{background:var(--gbg);border:1px solid var(--gbrd);border-radius:99px;padding:3px 12px;font-size:11px;font-weight:700;color:var(--gold)}
+.admin-logout{background:none;border:1px solid var(--brd);color:var(--mu2);border-radius:99px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+.admin-logout:hover{border-color:var(--red);color:var(--red)}
+.admin-content{flex:1;overflow-y:auto;padding:20px;scrollbar-width:thin;scrollbar-color:var(--brd) transparent}
+
+/* ADMIN STATS BAR */
+.admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:14px 16px}
+.stat-label{font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+.stat-val{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold)}
+.stat-sub{font-size:11px;color:var(--mu2);margin-top:2px}
+
+/* ADMIN TABLE */
+.admin-table-wrap{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);overflow:hidden}
+.admin-table-hd{padding:14px 16px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between}
+.admin-table-title{font-size:13px;font-weight:700;color:var(--tx)}
+.admin-refresh{background:var(--gbg);border:1px solid var(--gbrd);color:var(--gold);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.admin-refresh:hover{background:var(--gold);color:#16100a}
+.admin-refresh.spinning{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.atbl{width:100%;border-collapse:collapse;font-size:13px}
+.atbl th{padding:10px 14px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--mu);border-bottom:1px solid var(--brd);text-align:left;background:#13102000;white-space:nowrap}
+.atbl td{padding:11px 14px;border-bottom:1px solid var(--brd);vertical-align:middle}
+.atbl tbody tr:last-child td{border-bottom:none}
+.atbl tbody tr:hover td{background:rgba(201,168,76,.04)}
+.atbl-name{font-weight:700;color:var(--tx);font-size:13px}
+.atbl-id{font-size:11px;color:var(--mu);margin-top:2px;font-family:monospace;letter-spacing:.3px}
+.atbl-phone{font-size:12px;color:var(--mu2)}
+.atbl-email{font-size:11px;color:var(--mu);max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.atbl-amt{font-family:'Playfair Display',serif;font-size:16px;color:var(--gold);font-weight:600}
+.atbl-date{font-size:11px;color:var(--mu2);white-space:nowrap}
+.status-badge{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:3px 10px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+.status-pending{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);color:var(--gold)}
+.status-paid{background:rgba(76,175,125,.12);border:1px solid rgba(76,175,125,.3);color:var(--green)}
+.status-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+.atbl-items{font-size:11px;color:var(--mu2);max-width:160px}
+.atbl-items span{display:inline-block;background:var(--card2);border:1px solid var(--brd);border-radius:4px;padding:1px 6px;margin:1px 2px 1px 0;white-space:nowrap}
+
+/* detail toggle */
+.row-detail{display:none;background:#12102000}
+.row-detail.open{display:table-row}
+.detail-box{background:var(--card2);border:1px solid var(--brd);border-radius:var(--rs);padding:12px 14px;margin:4px 0 10px}
+.detail-box td{padding:6px 14px 10px;background:none}
+
+/* Mark paid btn */
+.mark-paid-btn{background:none;border:1px solid var(--green);color:var(--green);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
+.mark-paid-btn:hover{background:var(--green);color:#0d1a12}
+.mark-paid-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* empty admin */
+.admin-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;gap:12px;color:var(--mu);text-align:center}
+.admin-empty-ico{font-size:40px;opacity:.3;margin-bottom:4px}
+
+/* loading shimmer */
+.shimmer{background:linear-gradient(90deg,var(--card) 25%,var(--card2) 50%,var(--card) 75%);background-size:200% 100%;animation:shimmer 1.2s infinite;border-radius:4px;height:14px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ── RESPONSIVE ── */
 @media(max-width:767px){
   .sidebar{display:none}
   .mob-nav{display:block}
   .hd-cart{display:flex}
-  body{padding-bottom:60px}
-  .content{padding:14px 16px 20px}
-  .prod-list{grid-template-columns:1fr}
-  .prod-row{flex-direction:row;align-items:center;padding:14px}
-  .prod-ico{font-size:20px;width:28px;text-align:center}
+  body{padding-bottom:58px}
+  .content{padding:12px 14px 18px}
   .time-wrap{grid-template-columns:1fr 1fr}
+  .admin-stats{grid-template-columns:1fr}
+  .atbl-email,.atbl-items{display:none}
+  .admin-content{padding:14px}
 }
 @media(min-width:768px){
   .hd-cart{display:none}
   .mob-nav{display:none}
   .mob-drawer{display:none!important}
   .sidebar{display:flex}
+  .content{padding:18px 22px 20px}
+  .prod-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));border:none;border-radius:0;overflow:visible;gap:8px}
+  .prod-row{border-radius:var(--r);border:1px solid var(--brd);flex-direction:column;align-items:stretch;padding:15px;gap:10px}
+  .prod-row:last-child{border-bottom:1px solid var(--brd)}
+  .prod-row:hover{border-color:var(--gbrd);transform:translateY(-1px);transition:all .15s}
+  .prod-row-top{display:flex;align-items:center;justify-content:space-between}
+  .prod-ico{font-size:24px;margin-bottom:6px}
+  .time-wrap{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .time-card:hover{border-color:var(--gbrd);transform:translateY(-1px);transition:all .15s}
 }
 </style>
 </head>
 <body>
-<div class="app">
 
-<!-- MAIN -->
-<div class="main">
-  <div class="hd">
-    <div class="logo">
-      <span class="logo-name">✦ T-Share</span>
-      <div class="logo-div"></div>
-      <div class="logo-sub">Trải Bài<br>Huyền Học</div>
+<!-- ═══════════════════════════ MAIN PAGE ═══════════════════════════ -->
+<div id="page-main">
+
+  <div class="main">
+    <div class="hd">
+      <div class="logo">
+        <span class="logo-name">✦ T-Share</span>
+        <div class="logo-div"></div>
+        <div class="logo-sub">Trải Bài<br>Huyền Học</div>
+      </div>
+      <div class="hd-right">
+        <button class="hd-admin-btn" onclick="openAdminLogin()">⚙ Admin</button>
+        <button class="hd-cart" onclick="openMobCart()">
+          🛒 <span class="cart-num" id="hCartNum">0</span>
+        </button>
+      </div>
     </div>
-    <button class="hd-cart" onclick="openMobCart()">
-      🛒 <span class="cart-num" id="hCartNum">0</span>
-    </button>
+
+    <div class="tabs" id="tabBar"></div>
+    <div class="content" id="content"></div>
+
+    <nav class="mob-nav">
+      <div class="mob-nav-row">
+        <button class="nav-btn on" id="navSvc" onclick="navTo('svc')">
+          <span class="nav-ico">🔮</span>Dịch vụ
+        </button>
+        <button class="nav-btn" id="navCart" onclick="navTo('cart')">
+          <span class="nav-ico" style="position:relative;display:inline-block">
+            🛒<span class="nav-badge" id="navBadge">0</span>
+          </span>
+          Giỏ hàng
+        </button>
+      </div>
+    </nav>
   </div>
 
-  <div class="tabs" id="tabBar"></div>
-  <div class="content" id="content"></div>
-
-  <nav class="mob-nav">
-    <div class="mob-nav-row">
-      <button class="nav-btn on" id="navSvc" onclick="navTo('svc')">
-        <span class="nav-ico">🔮</span>Dịch vụ
-      </button>
-      <button class="nav-btn" id="navCart" onclick="navTo('cart')">
-        <span class="nav-ico" style="position:relative;display:inline-block">
-          🛒<span class="nav-badge" id="navBadge">0</span>
-        </span>
-        Giỏ hàng
-      </button>
+  <div class="sidebar">
+    <div class="sb-hd">
+      <div class="sb-title">🛒 Giỏ hàng</div>
+      <button class="sb-clear" onclick="clearCart()">Xóa tất cả</button>
     </div>
-  </nav>
+    <div class="sb-body" id="sbBody">
+      <div class="sb-empty">
+        <div class="sb-empty-ico">✨</div>
+        <div class="sb-empty-txt">Chưa có dịch vụ nào<br>Thêm từ danh sách bên trái</div>
+      </div>
+    </div>
+    <div class="sb-foot" id="sbFoot" style="display:none">
+      <div class="tot" style="margin-bottom:10px">
+        <span class="tot-lbl">Tổng cộng</span>
+        <span class="tot-val" id="sbTot">0k</span>
+      </div>
+      <button class="btn btn-gold" onclick="openInfo()">Tiếp tục thanh toán →</button>
+    </div>
+  </div>
 </div>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <div class="sb-hd">
-    <div class="sb-title">🛒 Giỏ hàng</div>
-    <button class="sb-clear" onclick="clearCart()">Xóa tất cả</button>
-  </div>
-  <div class="sb-body" id="sbBody">
-    <div class="sb-empty">
-      <div class="sb-empty-ico">✨</div>
-      <div class="sb-empty-txt">Chưa có dịch vụ nào<br>Thêm từ danh sách bên trái</div>
+<!-- ═══════════════════════════ ADMIN PAGE ═══════════════════════════ -->
+<div id="page-admin">
+  <div class="admin-hd">
+    <div class="admin-hd-left">
+      <div class="admin-title">✦ T-Share · Admin</div>
+      <span class="admin-badge" id="adminOrderCount">0 đơn</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="admin-refresh" id="refreshBtn" onclick="loadOrders()">↻ Làm mới</button>
+      <button class="admin-logout" onclick="adminLogout()">Đăng xuất</button>
     </div>
   </div>
-  <div class="sb-foot" id="sbFoot" style="display:none">
-    <div class="tot">
-      <span class="tot-lbl">Tổng cộng</span>
-      <span class="tot-val" id="sbTot">0k</span>
+  <div class="admin-content">
+    <div class="admin-stats" id="adminStats">
+      <div class="stat-card"><div class="stat-label">Tổng đơn hàng</div><div class="stat-val" id="statTotal">—</div></div>
+      <div class="stat-card"><div class="stat-label">Chờ thanh toán</div><div class="stat-val" id="statPending">—</div></div>
+      <div class="stat-card"><div class="stat-label">Doanh thu</div><div class="stat-val" id="statRevenue">—</div><div class="stat-sub">đơn đã thanh toán</div></div>
     </div>
-    <button class="btn btn-gold" onclick="openInfo()">Tiếp tục thanh toán →</button>
+    <div class="admin-table-wrap">
+      <div class="admin-table-hd">
+        <span class="admin-table-title">📋 Danh sách đơn hàng</span>
+      </div>
+      <div id="adminTableBody">
+        <div class="admin-empty">
+          <div class="admin-empty-ico">📭</div>
+          <div style="font-size:13px;color:var(--mu2)">Chưa có đơn hàng nào</div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 </div>
 
 <!-- MOBILE CART DRAWER -->
@@ -288,11 +398,11 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--tx
   <div class="mob-cart-list" id="mobCartList">
     <div class="mob-cart-empty">
       <div class="mob-cart-empty-ico">✨</div>
-      <div style="font-size:15px;color:var(--mu2)">Chưa có dịch vụ nào</div>
+      <div style="font-size:14px;color:var(--mu2)">Chưa có dịch vụ nào</div>
     </div>
   </div>
   <div class="mob-cart-foot">
-    <div class="tot" style="margin-bottom:12px">
+    <div class="tot" style="margin-bottom:10px">
       <span class="tot-lbl">Tổng cộng</span>
       <span class="tot-val" id="mobTot">0k</span>
     </div>
@@ -300,7 +410,7 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--tx
   </div>
 </div>
 
-<!-- SHEETS OVERLAY -->
+<!-- OVERLAY + SHEETS -->
 <div class="ov" id="ov" onclick="ovClick(event)">
 
   <!-- INFO SHEET -->
@@ -314,13 +424,13 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--tx
       <div class="fg"><label>Họ và tên *</label><input id="fName" placeholder="Nguyễn Văn A" autocomplete="name"/></div>
       <div class="fg"><label>SĐT / Zalo <span style="color:var(--mu);font-weight:400">(nếu có)</span></label><input id="fPhone" placeholder="0876 159 680" type="tel" autocomplete="tel"/></div>
       <div class="fg"><label>Gmail <span style="color:var(--mu);font-weight:400">(nếu có)</span></label><input id="fEmail" placeholder="email@gmail.com" type="email" autocomplete="email"/></div>
-      <div class="tot" style="margin-top:18px">
+      <div class="tot" style="margin-top:16px">
         <span class="tot-lbl">Tổng thanh toán</span>
         <span class="tot-val" id="infoTot">0k</span>
       </div>
     </div>
     <div class="sh-foot">
-      <button class="btn btn-gold" onclick="createInvoice()">Tạo Hóa Đơn & QR Thanh Toán →</button>
+      <button class="btn btn-gold" id="btnCreateInv" onclick="createInvoice()">Tạo Hóa Đơn & QR Thanh Toán →</button>
     </div>
   </div>
 
@@ -333,16 +443,66 @@ body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--tx
     </div>
     <div class="sh-body" id="invBody"></div>
     <div class="sh-foot">
-      <div style="display:flex;gap:10px">
-        <button class="btn btn-ghost" style="flex:1;padding:13px" onclick="closeSheet()">Đóng</button>
-        <button class="btn btn-gold" style="flex:2;padding:13px" id="btnDL" onclick="downloadPNG()">⬇ Tải ảnh hóa đơn</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost" style="flex:1;padding:11px" onclick="closeSheet()">Đóng</button>
+        <button class="btn btn-gold" style="flex:2;padding:11px" id="btnDL" onclick="downloadPNG()">⬇ Tải ảnh hóa đơn</button>
       </div>
+    </div>
+  </div>
+
+  <!-- ADMIN LOGIN SHEET -->
+  <div class="sheet" id="shAdminLogin">
+    <div class="sh-handle"></div>
+    <div class="sh-hd">
+      <div class="sh-title">🔐 Đăng nhập Admin</div>
+      <button class="sh-close" onclick="closeSheet()">✕</button>
+    </div>
+    <div class="sh-body">
+      <div style="text-align:center;margin-bottom:24px">
+        <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);margin-bottom:4px">✦ T-Share</div>
+        <div style="font-size:11px;font-weight:600;color:var(--mu2);text-transform:uppercase;letter-spacing:1.2px">Quản Trị Viên</div>
+      </div>
+      <div id="adminLoginErr" class="admin-login-err"></div>
+      <div class="fg"><label>Email</label><input id="adminEmail" type="email" placeholder="admin@tshare.com" autocomplete="email"/></div>
+      <div class="fg"><label>Mật khẩu</label><input id="adminPass" type="password" placeholder="••••••••" autocomplete="current-password"/></div>
+    </div>
+    <div class="sh-foot">
+      <button class="btn btn-gold" id="btnAdminLogin" onclick="doAdminLogin()">Đăng nhập →</button>
     </div>
   </div>
 
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getDatabase, ref, push, set, get, update, onValue, orderByChild, query } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDtAU-Iqn-u39_mgkxRZ3fIF_Kyxqn-Gyg",
+  authDomain: "csdl-bio.firebaseapp.com",
+  databaseURL: "https://csdl-bio-default-rtdb.firebaseio.com",
+  projectId: "csdl-bio",
+  storageBucket: "csdl-bio.firebasestorage.app",
+  messagingSenderId: "568258817515",
+  appId: "1:568258817515:web:6b62640e2e9b9939a63dae",
+  measurementId: "G-XJJ5LFNDJM"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+// Expose to window for non-module JS
+window._fb = { auth, db, signInWithEmailAndPassword, signOut, onAuthStateChanged, ref, push, set, get, update, onValue, query, orderByChild };
+
+onAuthStateChanged(auth, user => {
+  window._adminUser = user;
+});
+</script>
+
 <script>
 const BANK={id:'VCB',acc:'7876159680',name:'T-SHARE'};
 
@@ -350,86 +510,86 @@ const DATA={
   bai_tay:{label:'Bài Tây',icon:'🃏',
     groups:[
       {label:'Chủ Đề Hiện Tại',tag:'Hiện tại',items:[
-        {sku:'BT01',name:'Người Yêu Hiện Tại',price:30,icon:'❤️'},
-        {sku:'BT02',name:'Người Yêu Cũ',price:30,icon:'💔'},
-        {sku:'BT03',name:'Bạn Bè',price:30,icon:'👥'},
-        {sku:'BT04',name:'Học Tập',price:30,icon:'📚'},
-        {sku:'BT05',name:'Công Việc Hiện Tại',price:30,icon:'💼'},
+        {sku:'BT01',name:'Người Yêu Hiện Tại',price:35,icon:'❤️'},
+        {sku:'BT02',name:'Người Yêu Cũ',price:35,icon:'💔'},
+        {sku:'BT03',name:'Bạn Bè',price:35,icon:'👥'},
+        {sku:'BT04',name:'Học Tập',price:35,icon:'📚'},
+        {sku:'BT05',name:'Công Việc Hiện Tại',price:35,icon:'💼'},
       ]},
       {label:'Chủ Đề Tương Lai',tag:'Tương lai',items:[
-        {sku:'BT06',name:'Người Yêu Tương Lai',price:55,icon:'💕'},
-        {sku:'BT07',name:'Học Tập Tương Lai',price:55,icon:'📚'},
-        {sku:'BT08',name:'Công Việc Tương Lai',price:55,icon:'💼'},
-        {sku:'BT09',name:'Tổng Quan Tháng',price:120,icon:'📅'},
+        {sku:'BT06',name:'Người Yêu Tương Lai',price:60,icon:'💕'},
+        {sku:'BT07',name:'Học Tập Tương Lai',price:60,icon:'📚'},
+        {sku:'BT08',name:'Công Việc Tương Lai',price:60,icon:'💼'},
+        {sku:'BT09',name:'Tổng Quan Tháng',price:130,icon:'📅'},
       ]},
       {label:'Gói Thời Gian',tag:'Linh hoạt',isTime:true,items:[
-        {sku:'BT10',name:'10 phút',price:20},{sku:'BT11',name:'15 phút',price:30},
+        {sku:'BT10',name:'10 phút',price:25},{sku:'BT11',name:'15 phút',price:30},
         {sku:'BT12',name:'20 phút',price:35},{sku:'BT13',name:'30 phút',price:40},
-        {sku:'BT14',name:'40 phút',price:45},{sku:'BT15',name:'50 phút',price:50},
-        {sku:'BT16',name:'60 phút',price:55},
+        {sku:'BT14',name:'40 phút',price:50},{sku:'BT15',name:'50 phút',price:55},
+        {sku:'BT16',name:'60 phút',price:60},
       ]}
     ]},
   tarot:{label:'Tarot',icon:'✨',
     groups:[
       {label:'Chủ Đề Hiện Tại',tag:'Hiện tại',items:[
-        {sku:'TR01',name:'Người Yêu Hiện Tại',price:20,icon:'❤️'},
-        {sku:'TR02',name:'Người Yêu Cũ',price:20,icon:'💔'},
-        {sku:'TR03',name:'Bạn Bè',price:20,icon:'👥'},
-        {sku:'TR04',name:'Học Tập',price:20,icon:'📚'},
-        {sku:'TR05',name:'Công Việc Hiện Tại',price:20,icon:'💼'},
+        {sku:'TR01',name:'Người Yêu Hiện Tại',price:30,icon:'❤️'},
+        {sku:'TR02',name:'Người Yêu Cũ',price:30,icon:'💔'},
+        {sku:'TR03',name:'Bạn Bè',price:30,icon:'👥'},
+        {sku:'TR04',name:'Học Tập',price:30,icon:'📚'},
+        {sku:'TR05',name:'Công Việc Hiện Tại',price:30,icon:'💼'},
       ]},
       {label:'Chủ Đề Tương Lai',tag:'Tương lai',items:[
-        {sku:'TR06',name:'Người Yêu Tương Lai',price:30,icon:'💕'},
-        {sku:'TR07',name:'Học Tập Tương Lai',price:30,icon:'📚'},
-        {sku:'TR08',name:'Công Việc Tương Lai',price:30,icon:'💼'},
+        {sku:'TR06',name:'Người Yêu Tương Lai',price:45,icon:'💕'},
+        {sku:'TR07',name:'Học Tập Tương Lai',price:45,icon:'📚'},
+        {sku:'TR08',name:'Công Việc Tương Lai',price:45,icon:'💼'},
       ]},
       {label:'Gói Thời Gian',tag:'Linh hoạt',isTime:true,items:[
-        {sku:'TR09',name:'10 phút',price:15},{sku:'TR10',name:'15 phút',price:20},
-        {sku:'TR11',name:'20 phút',price:25},{sku:'TR12',name:'30 phút',price:30},
-        {sku:'TR13',name:'40 phút',price:35},{sku:'TR14',name:'50 phút',price:40},
-        {sku:'TR15',name:'60 phút',price:45},
+        {sku:'TR09',name:'10 phút',price:25},{sku:'TR10',name:'15 phút',price:30},
+        {sku:'TR11',name:'20 phút',price:35},{sku:'TR12',name:'30 phút',price:45},
+        {sku:'TR13',name:'40 phút',price:50-},{sku:'TR14',name:'50 phút',price:55},
+        {sku:'TR15',name:'60 phút',price:60},
       ]}
     ]},
   kinh_dich:{label:'Kinh Dịch',icon:'☯️',
     groups:[
       {label:'Chủ Đề Hiện Tại',tag:'Hiện tại',items:[
-        {sku:'KD01',name:'Người Yêu Hiện Tại',price:45,icon:'❤️'},
-        {sku:'KD02',name:'Người Yêu Cũ',price:45,icon:'💔'},
-        {sku:'KD03',name:'Bạn Bè',price:45,icon:'👥'},
-        {sku:'KD04',name:'Học Tập',price:45,icon:'📚'},
-        {sku:'KD05',name:'Công Việc Hiện Tại',price:45,icon:'💼'},
+        {sku:'KD01',name:'Người Yêu Hiện Tại',price:55,icon:'❤️'},
+        {sku:'KD02',name:'Người Yêu Cũ',price:55,icon:'💔'},
+        {sku:'KD03',name:'Bạn Bè',price:55,icon:'👥'},
+        {sku:'KD04',name:'Học Tập',price:55,icon:'📚'},
+        {sku:'KD05',name:'Công Việc Hiện Tại',price:55,icon:'💼'},
       ]},
       {label:'Chủ Đề Tương Lai',tag:'Tương lai',items:[
-        {sku:'KD06',name:'Người Yêu Tương Lai',price:70,icon:'💕'},
-        {sku:'KD07',name:'Học Tập Tương Lai',price:70,icon:'📚'},
-        {sku:'KD08',name:'Công Việc Tương Lai',price:70,icon:'💼'},
+        {sku:'KD06',name:'Người Yêu Tương Lai',price:80,icon:'💕'},
+        {sku:'KD07',name:'Học Tập Tương Lai',price:80,icon:'📚'},
+        {sku:'KD08',name:'Công Việc Tương Lai',price:80,icon:'💼'},
       ]},
       {label:'Gói Thời Gian',tag:'Linh hoạt',isTime:true,items:[
-        {sku:'KD09',name:'10 phút',price:35},{sku:'KD10',name:'15 phút',price:45},
-        {sku:'KD11',name:'20 phút',price:50},{sku:'KD12',name:'30 phút',price:55},
-        {sku:'KD13',name:'40 phút',price:60},{sku:'KD14',name:'50 phút',price:65},
-        {sku:'KD15',name:'60 phút',price:70},
+        {sku:'KD09',name:'10 phút',price:40},{sku:'KD10',name:'15 phút',price:50},
+        {sku:'KD11',name:'20 phút',price:60},{sku:'KD12',name:'30 phút',price:65},
+        {sku:'KD13',name:'40 phút',price:70},{sku:'KD14',name:'50 phút',price:75},
+        {sku:'KD15',name:'60 phút',price:80},
       ]}
     ]},
   lenormand:{label:'Lenormand',icon:'🌿',
     groups:[
       {label:'Chủ Đề Hiện Tại',tag:'Hiện tại',items:[
-        {sku:'LN01',name:'Người Yêu Hiện Tại',price:25,icon:'❤️'},
-        {sku:'LN02',name:'Người Yêu Cũ',price:25,icon:'💔'},
-        {sku:'LN03',name:'Bạn Bè',price:25,icon:'👥'},
-        {sku:'LN04',name:'Học Tập',price:25,icon:'📚'},
-        {sku:'LN05',name:'Công Việc Hiện Tại',price:25,icon:'💼'},
+        {sku:'LN01',name:'Người Yêu Hiện Tại',price:45,icon:'❤️'},
+        {sku:'LN02',name:'Người Yêu Cũ',price:45,icon:'💔'},
+        {sku:'LN03',name:'Bạn Bè',price:45,icon:'👥'},
+        {sku:'LN04',name:'Học Tập',price:45,icon:'📚'},
+        {sku:'LN05',name:'Công Việc Hiện Tại',price:45,icon:'💼'},
       ]},
       {label:'Chủ Đề Tương Lai',tag:'Tương lai',items:[
-        {sku:'LN06',name:'Người Yêu Tương Lai',price:40,icon:'💕'},
-        {sku:'LN07',name:'Học Tập Tương Lai',price:40,icon:'📚'},
-        {sku:'LN08',name:'Công Việc Tương Lai',price:40,icon:'💼'},
+        {sku:'LN06',name:'Người Yêu Tương Lai',price:55,icon:'💕'},
+        {sku:'LN07',name:'Học Tập Tương Lai',price:55,icon:'📚'},
+        {sku:'LN08',name:'Công Việc Tương Lai',price:55,icon:'💼'},
       ]},
       {label:'Gói Thời Gian',tag:'Linh hoạt',isTime:true,items:[
-        {sku:'LN09',name:'10 phút',price:20},{sku:'LN10',name:'15 phút',price:25},
-        {sku:'LN11',name:'20 phút',price:30},{sku:'LN12',name:'30 phút',price:35},
-        {sku:'LN13',name:'40 phút',price:40},{sku:'LN14',name:'50 phút',price:45},
-        {sku:'LN15',name:'60 phút',price:50},
+        {sku:'LN09',name:'10 phút',price:30},{sku:'LN10',name:'15 phút',price:40},
+        {sku:'LN11',name:'20 phút',price:45},{sku:'LN12',name:'30 phút',price:50},
+        {sku:'LN13',name:'40 phút',price:55},{sku:'LN14',name:'50 phút',price:60},
+        {sku:'LN15',name:'60 phút',price:65},
       ]}
     ]}
 };
@@ -439,13 +599,14 @@ Object.entries(DATA).forEach(([type,sec])=>{
   sec.groups.forEach(g=>g.items.forEach(it=>{it.type=type;ALL[it.sku]=it;}));
 });
 
-let cart=JSON.parse(localStorage.getItem('ts5_cart')||'{}');
+let cart=JSON.parse(localStorage.getItem('ts4_cart')||'{}');
 let activeTab=Object.keys(DATA)[0];
 
 const total=()=>Object.values(cart).reduce((s,i)=>s+i.qty*i.price,0);
 const count=()=>Object.values(cart).reduce((s,i)=>s+i.qty,0);
-const save=()=>localStorage.setItem('ts5_cart',JSON.stringify(cart));
+const save=()=>localStorage.setItem('ts4_cart',JSON.stringify(cart));
 
+// ── RENDER MAIN ──
 function renderTabs(){
   document.getElementById('tabBar').innerHTML=Object.keys(DATA).map(k=>`
     <button class="tab${k===activeTab?' on':''}" onclick="switchTab('${k}')">
@@ -477,14 +638,12 @@ function renderContent(){
       g.items.forEach(it=>{
         const q=cart[it.sku]?.qty||0;
         html+=`<div class="prod-row" id="row-${it.sku}" onclick="addItem('${it.sku}')">
-          <div class="prod-row-top">
-            <span class="prod-ico">${it.icon||'✨'}</span>
-            <button class="btn-add" id="pa-${it.sku}" onclick="addEv('${it.sku}',event)">+</button>
-          </div>
+          <span class="prod-ico">${it.icon||'✨'}</span>
           <div class="prod-info">
             <div class="prod-name">${it.name}${q?`<span class="qty-dot">×${q}</span>`:''}</div>
             <div class="prod-price">${it.price}K</div>
           </div>
+          <button class="btn-add" id="pa-${it.sku}" onclick="addEv('${it.sku}',event)">+</button>
         </div>`;
       });
       html+='</div>';
@@ -549,9 +708,8 @@ function renderSidebar(){
 function renderMobCart(){
   const items=Object.values(cart);
   const list=document.getElementById('mobCartList');
-  if(!list)return;
   if(!items.length){
-    list.innerHTML=`<div class="mob-cart-empty"><div class="mob-cart-empty-ico">✨</div><div style="font-size:15px;color:var(--mu2)">Chưa có dịch vụ nào</div></div>`;
+    list.innerHTML=`<div class="mob-cart-empty"><div class="mob-cart-empty-ico">✨</div><div style="font-size:14px;color:var(--mu2)">Chưa có dịch vụ nào</div></div>`;
     return;
   }
   list.innerHTML=items.map(i=>`
@@ -571,21 +729,10 @@ function renderMobCart(){
 }
 
 function openMobCart(){renderMobCart();document.getElementById('mobDrawer').classList.add('open');}
-function closeMobCart(){
-  document.getElementById('mobDrawer').classList.remove('open');
-  document.getElementById('navCart').className='nav-btn';
-  document.getElementById('navSvc').className='nav-btn on';
-}
+function closeMobCart(){document.getElementById('mobDrawer').classList.remove('open');document.getElementById('navCart').className='nav-btn';document.getElementById('navSvc').className='nav-btn on';}
 function navTo(t){
-  if(t==='cart'){
-    document.getElementById('navSvc').className='nav-btn';
-    document.getElementById('navCart').className='nav-btn on';
-    openMobCart();
-  } else {
-    document.getElementById('navCart').className='nav-btn';
-    document.getElementById('navSvc').className='nav-btn on';
-    closeMobCart();
-  }
+  if(t==='cart'){document.getElementById('navSvc').className='nav-btn';document.getElementById('navCart').className='nav-btn on';openMobCart();}
+  else{document.getElementById('navCart').className='nav-btn';document.getElementById('navSvc').className='nav-btn on';closeMobCart();}
 }
 
 function openInfo(){
@@ -605,13 +752,10 @@ function closeSheet(){
 }
 function ovClick(e){if(e.target===e.currentTarget)closeSheet();}
 
-function createInvoice(){
+// ── CREATE INVOICE + SAVE TO FIREBASE ──
+async function createInvoice(){
   const name=document.getElementById('fName').value.trim();
-  if(!name){
-    document.getElementById('fName').focus();
-    document.getElementById('fName').style.borderColor='#e05c5c';
-    return;
-  }
+  if(!name){document.getElementById('fName').focus();document.getElementById('fName').style.borderColor='#e05c5c';return;}
   document.getElementById('fName').style.borderColor='';
   const phone=document.getElementById('fPhone').value.trim();
   const email=document.getElementById('fEmail').value.trim();
@@ -623,6 +767,30 @@ function createInvoice(){
   const timeStr=now.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'});
   const amtVND=tot*1000;
   const qrUrl=`https://img.vietqr.io/image/${BANK.id}-${BANK.acc}-compact.png?amount=${amtVND}&addInfo=${encodeURIComponent(orderId)}&accountName=${encodeURIComponent(BANK.name)}`;
+
+  // Save to Firebase
+  try {
+    const fb=window._fb;
+    if(fb){
+      const orderData={
+        orderId,
+        name,
+        phone:phone||'',
+        email:email||'',
+        items:items.map(i=>({sku:i.sku,name:i.name,qty:i.qty,price:i.price,type:i.type,typeLabel:DATA[i.type]?.label||''})),
+        total:tot,
+        totalVND:amtVND,
+        status:'pending',
+        createdAt:now.toISOString(),
+        createdAtMs:Date.now()
+      };
+      const ordersRef=fb.ref(fb.db,'orders');
+      const newRef=await fb.push(ordersRef);
+      await fb.set(newRef,orderData);
+    }
+  } catch(err){
+    console.warn('Firebase save error:',err);
+  }
 
   let rows=items.map((it,i)=>`
     <tr>
@@ -649,7 +817,7 @@ function createInvoice(){
       <div class="inv-cust">
         <div class="ic-row"><span class="ic-lbl">Khách hàng</span><span class="ic-val">${name}</span></div>
         ${phone?`<div class="ic-row"><span class="ic-lbl">SĐT / Zalo</span><span class="ic-val">${phone}</span></div>`:''}
-        ${email?`<div class="ic-row"><span class="ic-lbl">Gmail</span><span class="ic-val" style="font-size:13px">${email}</span></div>`:''}
+        ${email?`<div class="ic-row"><span class="ic-lbl">Gmail</span><span class="ic-val" style="font-size:12px">${email}</span></div>`:''}
       </div>
       <table class="inv-tbl">
         <thead><tr><th>Dịch vụ</th><th>SL</th><th style="text-align:right">Giá</th><th style="text-align:right">Tiền</th></tr></thead>
@@ -661,8 +829,8 @@ function createInvoice(){
       </div>
       <div class="qr-wrap">
         <div class="qr-label">📱 Quét QR để thanh toán ngay</div>
-        <div class="qr-img-box">
-          <img id="qrImg" src="${qrUrl}" alt="QR VietQR" width="200" height="200"/>
+        <div style="margin-bottom:10px">
+          <img id="qrImg" src="${qrUrl}" alt="QR VietQR" width="200" height="200" style="display:block;width:200px;height:200px;object-fit:contain;margin:0 auto;border-radius:10px;background:#fff;padding:8px"/>
         </div>
         <div><span class="qr-amt">${amtVND.toLocaleString('vi-VN')} VNĐ</span></div>
         <div class="qr-info">
@@ -681,48 +849,218 @@ function createInvoice(){
   cart={};save();syncAll();renderSidebar();renderMobCart();
 }
 
+// ── DOWNLOAD PNG ──
 function downloadPNG(){
   const el=document.getElementById('invPrint');
   if(!el||typeof html2canvas==='undefined'){alert('Đang tải thư viện, thử lại!');return;}
   const btn=document.getElementById('btnDL');
   btn.textContent='⏳ Đang chuẩn bị...';btn.disabled=true;
-
   const qrImg=document.getElementById('qrImg');
 
   function doCapture(){
-    html2canvas(el,{
-      backgroundColor:'#18142a',scale:2.5,useCORS:false,
-      allowTaint:true,logging:false,imageTimeout:0
-    }).then(canvas=>{
-      const a=document.createElement('a');
-      a.download='tshare-hoadon-'+Date.now()+'.png';
-      a.href=canvas.toDataURL('image/png');
-      a.click();
-      btn.textContent='⬇ Tải ảnh hóa đơn';btn.disabled=false;
-    }).catch(()=>{
-      alert('Không thể xuất ảnh, hãy chụp màn hình thay thế.');
-      btn.textContent='⬇ Tải ảnh hóa đơn';btn.disabled=false;
-    });
+    html2canvas(el,{backgroundColor:'#18142a',scale:2.5,useCORS:false,allowTaint:true,logging:false,imageTimeout:0})
+      .then(canvas=>{
+        const a=document.createElement('a');
+        a.download='tshare-hoadon-'+Date.now()+'.png';
+        a.href=canvas.toDataURL('image/png');
+        a.click();
+        btn.textContent='⬇ Tải ảnh hóa đơn';btn.disabled=false;
+      }).catch(err=>{
+        console.error(err);
+        alert('Không thể xuất ảnh, hãy chụp màn hình thay thế.');
+        btn.textContent='⬇ Tải ảnh hóa đơn';btn.disabled=false;
+      });
   }
 
-  if(!qrImg||qrImg.src.startsWith('data:')){doCapture();return;}
-
+  if(!qrImg){doCapture();return;}
+  if(qrImg.src.startsWith('data:')){doCapture();return;}
+  const originalSrc=qrImg.src;
   btn.textContent='⏳ Đang tải QR...';
-  fetch(qrImg.src)
+  fetch(originalSrc)
     .then(r=>{if(!r.ok)throw new Error();return r.blob();})
-    .then(blob=>new Promise((res,rej)=>{
-      const reader=new FileReader();
-      reader.onload=()=>res(reader.result);
-      reader.onerror=rej;
-      reader.readAsDataURL(blob);
-    }))
-    .then(dataUrl=>{
-      qrImg.onload=()=>setTimeout(doCapture,100);
-      qrImg.onerror=()=>doCapture();
-      qrImg.src=dataUrl;
-    })
+    .then(blob=>new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(blob);}))
+    .then(dataUrl=>{qrImg.onload=()=>setTimeout(doCapture,100);qrImg.onerror=()=>doCapture();qrImg.src=dataUrl;})
     .catch(()=>doCapture());
 }
+
+// ══════════════════════════════════════════
+// ADMIN
+// ══════════════════════════════════════════
+
+function openAdminLogin(){
+  if(window._adminUser){openAdminPage();return;}
+  document.getElementById('adminLoginErr').style.display='none';
+  document.getElementById('adminEmail').value='';
+  document.getElementById('adminPass').value='';
+  showSheet('shAdminLogin');
+}
+
+async function doAdminLogin(){
+  const email=document.getElementById('adminEmail').value.trim();
+  const pass=document.getElementById('adminPass').value;
+  const errEl=document.getElementById('adminLoginErr');
+  const btn=document.getElementById('btnAdminLogin');
+  if(!email||!pass){errEl.textContent='Vui lòng nhập đầy đủ thông tin.';errEl.style.display='block';return;}
+  btn.textContent='Đang đăng nhập...';btn.disabled=true;
+  errEl.style.display='none';
+  try {
+    const fb=window._fb;
+    await fb.signInWithEmailAndPassword(fb.auth,email,pass);
+    btn.textContent='Đăng nhập →';btn.disabled=false;
+    closeSheet();
+    openAdminPage();
+  } catch(e){
+    let msg='Email hoặc mật khẩu không đúng.';
+    if(e.code==='auth/too-many-requests')msg='Quá nhiều lần thử. Vui lòng đợi.';
+    errEl.textContent=msg;errEl.style.display='block';
+    btn.textContent='Đăng nhập →';btn.disabled=false;
+  }
+}
+
+function openAdminPage(){
+  document.getElementById('page-main').style.display='none';
+  document.getElementById('page-admin').style.display='flex';
+  loadOrders();
+}
+
+async function adminLogout(){
+  try{await window._fb.signOut(window._fb.auth);}catch(e){}
+  window._adminUser=null;
+  document.getElementById('page-admin').style.display='none';
+  document.getElementById('page-main').style.display='flex';
+}
+
+let _allOrders=[];
+
+async function loadOrders(){
+  const btn=document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  try{
+    const fb=window._fb;
+    const snap=await fb.get(fb.ref(fb.db,'orders'));
+    _allOrders=[];
+    if(snap.exists()){
+      snap.forEach(child=>{
+        _allOrders.push({_key:child.key,...child.val()});
+      });
+      // Sort newest first
+      _allOrders.sort((a,b)=>(b.createdAtMs||0)-(a.createdAtMs||0));
+    }
+    renderAdminTable();
+  }catch(e){
+    console.error(e);
+    document.getElementById('adminTableBody').innerHTML=`<div class="admin-empty"><div class="admin-empty-ico">⚠️</div><div style="font-size:13px;color:var(--red)">Lỗi tải dữ liệu. Kiểm tra kết nối.</div></div>`;
+  }
+  btn.classList.remove('spinning');
+}
+
+function renderAdminTable(){
+  const orders=_allOrders;
+  const total_orders=orders.length;
+  const pending=orders.filter(o=>o.status==='pending').length;
+  const revenue=orders.filter(o=>o.status==='paid').reduce((s,o)=>s+o.total,0);
+
+  document.getElementById('adminOrderCount').textContent=total_orders+' đơn';
+  document.getElementById('statTotal').textContent=total_orders;
+  document.getElementById('statPending').textContent=pending;
+  document.getElementById('statRevenue').textContent=revenue+'k';
+
+  if(!orders.length){
+    document.getElementById('adminTableBody').innerHTML=`<div class="admin-empty"><div class="admin-empty-ico">📭</div><div style="font-size:13px;color:var(--mu2)">Chưa có đơn hàng nào</div></div>`;
+    return;
+  }
+
+  let rows='';
+  orders.forEach((o,i)=>{
+    const dt=o.createdAt?new Date(o.createdAt).toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'—';
+    const isPaid=o.status==='paid';
+    const itemsSummary=(o.items||[]).map(it=>`<span>${it.name}</span>`).join('');
+    rows+=`
+      <tr style="cursor:pointer" onclick="toggleDetail('${o._key}')">
+        <td>
+          <div class="atbl-name">${o.name||'—'}</div>
+          <div class="atbl-id">#${o.orderId||'—'}</div>
+        </td>
+        <td>
+          <div class="atbl-phone">${o.phone||'—'}</div>
+          <div class="atbl-email">${o.email||''}</div>
+        </td>
+        <td class="atbl-items">${itemsSummary}</td>
+        <td><span class="atbl-amt">${o.total||0}k</span></td>
+        <td>
+          <span class="status-badge ${isPaid?'status-paid':'status-pending'}">
+            <span class="status-dot"></span>${isPaid?'Đã TT':'Chờ TT'}
+          </span>
+        </td>
+        <td><div class="atbl-date">${dt}</div></td>
+        <td>
+          <button class="mark-paid-btn" ${isPaid?'disabled':''} onclick="markPaid(event,'${o._key}')">
+            ${isPaid?'✓ Đã TT':'✓ Xác nhận'}
+          </button>
+        </td>
+      </tr>
+      <tr class="row-detail" id="detail-${o._key}">
+        <td colspan="7">
+          <div class="detail-box">
+            <div style="font-size:11px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Chi tiết đơn #${o.orderId}</div>
+            ${(o.items||[]).map(it=>`
+              <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--brd);font-size:12px">
+                <span style="color:var(--tx)">${it.icon||''} ${it.name} <span style="color:var(--mu)">(${it.typeLabel})</span></span>
+                <span style="color:var(--gold);font-weight:700">${it.qty} × ${it.price}k = ${it.qty*it.price}k</span>
+              </div>`).join('')}
+            <div style="display:flex;justify-content:space-between;padding-top:8px;font-size:13px;font-weight:800">
+              <span style="color:var(--mu2)">Tổng cộng</span>
+              <span style="color:var(--gold)">${o.total}k</span>
+            </div>
+          </div>
+        </td>
+      </tr>`;
+  });
+
+  document.getElementById('adminTableBody').innerHTML=`
+    <div style="overflow-x:auto">
+      <table class="atbl">
+        <thead>
+          <tr>
+            <th>Khách hàng</th>
+            <th>Liên hệ</th>
+            <th class="atbl-items">Dịch vụ</th>
+            <th>Tổng</th>
+            <th>Trạng thái</th>
+            <th>Thời gian</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+function toggleDetail(key){
+  const el=document.getElementById('detail-'+key);
+  if(el)el.classList.toggle('open');
+}
+
+async function markPaid(e,key){
+  e.stopPropagation();
+  const btn=e.currentTarget;
+  btn.disabled=true;btn.textContent='⏳...';
+  try{
+    const fb=window._fb;
+    await fb.update(fb.ref(fb.db,'orders/'+key),{status:'paid',paidAt:new Date().toISOString()});
+    const idx=_allOrders.findIndex(o=>o._key===key);
+    if(idx>-1){_allOrders[idx].status='paid';}
+    renderAdminTable();
+  }catch(e){
+    btn.disabled=false;btn.textContent='✓ Xác nhận';
+    alert('Lỗi cập nhật. Thử lại!');
+  }
+}
+
+// Enter key login
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&document.getElementById('shAdminLogin').classList.contains('on'))doAdminLogin();
+});
 
 renderTabs();renderContent();renderSidebar();syncAll();
 </script>
