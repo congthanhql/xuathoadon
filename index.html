@@ -1,347 +1,357 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>T-SHARE GROUPS</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đặt Lịch Xem Bói</title>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
-body{
-  font-family:Arial;
-  margin:0;
-  background:linear-gradient(180deg,#f5f6fa,#eef1f8);
-  color:#222;
-}
-
-.wrap{
-  max-width:1100px;
-  margin:auto;
-  padding:20px;
-}
-
-h2{
-  text-align:center;
-  font-weight:800;
-}
-
-/* SECTION */
-.section{
-  margin-top:20px;
-  background:#fff;
-  padding:15px;
-  border-radius:14px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.06);
-}
-
-/* TITLE */
-.section-title{
-  font-size:18px;
-  font-weight:700;
-  margin-bottom:12px;
-  padding-left:10px;
-  border-left:4px solid #6b4f9f;
-}
-
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:14px;
-}
-
-/* CARD */
-.card{
-  background:#fdfdfd;
-  padding:14px;
-  border-radius:12px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.05);
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  min-height:120px;
-  transition:0.2s;
-}
-
-.card:hover{
-  transform:translateY(-3px);
-}
-
-.price{
-  color:#6b4f9f;
-  font-weight:700;
-  margin-top:6px;
-}
-
-/* BUTTON */
-button{
-  padding:8px 12px;
-  border:0;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:600;
-}
-
-.btn{
-  background:linear-gradient(135deg,#6b4f9f,#8e6dd1);
-  color:#fff;
-}
-
-/* CART */
-.cart{
-  position:sticky;
-  bottom:10px;
-  margin-top:25px;
-  background:#fff;
-  padding:14px 16px;
-  border-radius:14px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-/* MODAL */
-.modal{
- position:fixed;
- inset:0;
- background:rgba(0,0,0,0.6);
- display:none;
-}
-
-.modal-box{
- background:#fff;
- padding:22px;
- margin:2% auto;
- width:95%;
- max-width:800px;
- border-radius:14px;
- max-height:90vh;
- overflow-y:auto;
-}
-
-.right-actions{
-  display:flex;
-  justify-content:flex-end;
-  gap:10px;
-  margin-top:15px;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-table td,table th{
-  padding:8px;
-  text-align:center;
-  border:1px solid #ddd;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#0d1117;color:#e6d5b8;min-height:100vh}
+header{background:linear-gradient(135deg,#1a0a2e,#16213e);padding:20px;text-align:center;border-bottom:1px solid #2d1b4e}
+header h1{font-size:1.8rem;color:#d4af37;letter-spacing:2px}
+header p{color:#9d86c0;font-size:.9rem;margin-top:4px}
+.container{max-width:900px;margin:0 auto;padding:20px}
+.section{background:#161b2e;border:1px solid #2d1b4e;border-radius:12px;margin-bottom:20px;overflow:hidden}
+.section-header{background:#1e1535;padding:12px 20px;display:flex;justify-content:space-between;align-items:center}
+.section-header h2{font-size:.75rem;letter-spacing:2px;color:#9d86c0;text-transform:uppercase}
+.badge{background:#2d1b4e;color:#d4af37;font-size:.7rem;padding:3px 10px;border-radius:20px}
+.price-row{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #1e1535;cursor:pointer;transition:background .2s}
+.price-row:last-child{border-bottom:none}
+.price-row:hover{background:#1e1535}
+.price-row.selected{background:#1e1535;border-left:3px solid #d4af37}
+.price-row span:first-child{font-size:.95rem}
+.price{color:#d4af37;font-weight:600;font-size:.95rem}
+.time-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.time-item{display:flex;justify-content:space-between;padding:12px 20px;border-bottom:1px solid #1e1535;border-right:1px solid #1e1535;cursor:pointer;transition:background .2s}
+.time-item:nth-child(even){border-right:none}
+.time-item:nth-last-child(-n+2){border-bottom:none}
+.time-item:hover{background:#1e1535}
+.time-item.selected{background:#1e1535;border-left:3px solid #d4af37}
+.form-section{background:#161b2e;border:1px solid #2d1b4e;border-radius:12px;padding:24px;margin-bottom:20px}
+.form-section h2{color:#d4af37;font-size:1rem;margin-bottom:16px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:.85rem;color:#9d86c0;margin-bottom:6px}
+.form-group input,.form-group select{width:100%;padding:10px 14px;background:#0d1117;border:1px solid #2d1b4e;border-radius:8px;color:#e6d5b8;font-size:.9rem;outline:none}
+.form-group input:focus,.form-group select:focus{border-color:#d4af37}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.selection-summary{background:#1e1535;border:1px solid #2d1b4e;border-radius:8px;padding:14px;margin-bottom:14px;min-height:80px}
+.selection-summary p{font-size:.85rem;color:#9d86c0;line-height:1.8}
+.selection-summary .item{color:#e6d5b8}
+.selection-summary .total{color:#d4af37;font-weight:600;margin-top:8px;font-size:1rem}
+.btn-submit{width:100%;padding:14px;background:linear-gradient(135deg,#d4af37,#b8960a);color:#0d1117;font-weight:700;font-size:1rem;border:none;border-radius:8px;cursor:pointer;letter-spacing:1px}
+.btn-submit:hover{opacity:.9}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.active{display:flex}
+.modal{background:#161b2e;border:1px solid #d4af37;border-radius:16px;padding:32px;max-width:420px;width:90%;text-align:center}
+.modal h2{color:#d4af37;font-size:1.2rem;margin-bottom:8px}
+.modal p{color:#9d86c0;font-size:.85rem;margin-bottom:20px}
+#qrcode{display:inline-block;background:#fff;padding:12px;border-radius:8px;margin-bottom:16px}
+.booking-info{text-align:left;background:#0d1117;border-radius:8px;padding:14px;margin-bottom:16px}
+.booking-info p{font-size:.82rem;line-height:2;color:#9d86c0}
+.booking-info span{color:#e6d5b8}
+.booking-id{font-size:1.1rem;color:#d4af37;font-weight:700;letter-spacing:2px;margin-bottom:4px}
+.btn-close{background:transparent;border:1px solid #d4af37;color:#d4af37;padding:10px 24px;border-radius:8px;cursor:pointer;font-size:.9rem}
+.note-box{background:#1a1025;border:1px solid #2d1b4e;border-radius:8px;padding:12px 16px;font-size:.8rem;color:#9d86c0;line-height:1.6}
+.note-box strong{color:#d4af37}
+.divider-label{display:flex;align-items:center;gap:10px;margin:20px 0 10px}
+.divider-label span{font-size:.8rem;color:#9d86c0;white-space:nowrap}
+.divider-label::before,.divider-label::after{content:'';flex:1;height:1px;background:#2d1b4e}
+.service-icon{width:36px;height:36px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:1.2rem;margin-right:10px;vertical-align:middle}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab{padding:8px 16px;border-radius:20px;border:1px solid #2d1b4e;background:transparent;color:#9d86c0;cursor:pointer;font-size:.85rem;transition:all .2s}
+.tab.active{background:#d4af37;color:#0d1117;border-color:#d4af37;font-weight:600}
+.service-header{display:flex;align-items:center;padding:16px 20px 12px}
+.service-header img{width:40px;height:40px;border-radius:8px;margin-right:12px;object-fit:cover}
+.service-header div h3{font-size:1rem;color:#e6d5b8}
+.service-header div p{font-size:.75rem;color:#9d86c0;letter-spacing:1px;text-transform:uppercase}
 </style>
 </head>
-
 <body>
+<header>
+  <h1>✦ Xem Bói Tâm Linh ✦</h1>
+  <p>Chọn dịch vụ và đặt lịch ngay hôm nay</p>
+</header>
 
-<div class="wrap">
-<h2>T-SHARE GROUPS</h2>
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="switchService('kinhdich')">☯ Kinh Dịch</button>
+    <button class="tab" onclick="switchService('tarot')">✦ Tarot</button>
+    <button class="tab" onclick="switchService('lenormand')">🌿 Lenormand</button>
+    <button class="tab" onclick="switchService('baitay')">🃏 Bài Tây</button>
+  </div>
 
-<!-- BÀI TÂY -->
-<div class="section">
-  <div class="section-title">🂡 Bài Tây</div>
-  <div id="baiTay" class="grid"></div>
+  <!-- Kinh Dịch -->
+  <div id="service-kinhdich" class="service-content">
+    <div class="section">
+      <div class="service-header">
+        <div style="width:40px;height:40px;background:#1e1535;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-right:12px">☯</div>
+        <div><h3>Kinh Dịch</h3><p>Bát Quái – I Ching</p></div>
+      </div>
+      <div class="section-header"><h2>Chủ đề hiện tại</h2><span class="badge">Hiện tại</span></div>
+      <div class="price-row" onclick="selectItem('topic','Người Yêu Hiện Tại – Kinh Dịch',55000)"><span>Người Yêu Hiện Tại</span><span class="price">55k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Người Yêu Cũ – Kinh Dịch',55000)"><span>Người Yêu Cũ</span><span class="price">55k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Bạn Bè – Kinh Dịch',55000)"><span>Bạn Bè</span><span class="price">55k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Học Tập – Kinh Dịch',55000)"><span>Học Tập</span><span class="price">55k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Công Việc Hiện Tại – Kinh Dịch',55000)"><span>Công Việc Hiện Tại</span><span class="price">55k</span></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><h2>Chủ đề tương lai</h2><span class="badge">Tương lai</span></div>
+      <div class="price-row" onclick="selectItem('topic','Người Yêu Tương Lai – Kinh Dịch',80000)"><span>Người Yêu Tương Lai</span><span class="price">80k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Học Tập Tương Lai – Kinh Dịch',80000)"><span>Học Tập Tương Lai</span><span class="price">80k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Công Việc Tương Lai – Kinh Dịch',80000)"><span>Công Việc Tương Lai</span><span class="price">80K</span></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><h2>Gói thời gian</h2><span class="badge">Linh hoạt</span></div>
+      <div class="time-grid">
+        <div class="time-item" onclick="selectItem('time','10 phút – Kinh Dịch',40000)"><span>10 phút</span><span class="price">40k</span></div>
+        <div class="time-item" onclick="selectItem('time','15 phút – Kinh Dịch',50000)"><span>15 phút</span><span class="price">50k</span></div>
+        <div class="time-item" onclick="selectItem('time','20 phút – Kinh Dịch',60000)"><span>20 phút</span><span class="price">60k</span></div>
+        <div class="time-item" onclick="selectItem('time','30 phút – Kinh Dịch',65000)"><span>30 phút</span><span class="price">65k</span></div>
+        <div class="time-item" onclick="selectItem('time','40 phút – Kinh Dịch',70000)"><span>40 phút</span><span class="price">70k</span></div>
+        <div class="time-item" onclick="selectItem('time','50 phút – Kinh Dịch',75000)"><span>50 phút</span><span class="price">75k</span></div>
+        <div class="time-item" onclick="selectItem('time','60 phút – Kinh Dịch',80000)" style="grid-column:1"><span>60 phút</span><span class="price">80k</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarot -->
+  <div id="service-tarot" class="service-content" style="display:none">
+    <div class="section">
+      <div class="service-header">
+        <div style="width:40px;height:40px;background:#1e1535;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-right:12px">✦</div>
+        <div><h3>Tarot</h3><p>Tarot Cards</p></div>
+      </div>
+      <div class="section-header"><h2>Chủ đề hiện tại</h2><span class="badge">Hiện tại</span></div>
+      <div class="price-row" onclick="selectItem('topic','Người Yêu Hiện Tại – Tarot',30000)"><span>Người Yêu Hiện Tại</span><span class="price">30k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Người Yêu Cũ – Tarot',30000)"><span>Người Yêu Cũ</span><span class="price">30k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Bạn Bè – Tarot',30000)"><span>Bạn Bè</span><span class="price">30k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Gia Đình – Tarot',30000)"><span>Gia Đình</span><span class="price">30k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Công Việc Hiện Tại – Tarot',30000)"><span>Công Việc Hiện Tại</span><span class="price">30k</span></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><h2>Chủ đề tương lai</h2><span class="badge">Tương lai</span></div>
+      <div class="price-row" onclick="selectItem('topic','Người Yêu Tương Lai – Tarot',45000)"><span>Người Yêu Tương Lai</span><span class="price">45k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Gia Đình Tương Lai – Tarot',45000)"><span>Gia Đình Tương Lai</span><span class="price">45k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Công Việc Tương Lai – Tarot',45000)"><span>Công Việc Tương Lai</span><span class="price">45k</span></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><h2>Gói thời gian</h2><span class="badge">Linh hoạt</span></div>
+      <div class="time-grid">
+        <div class="time-item" onclick="selectItem('time','10 phút – Tarot',25000)"><span>10 phút</span><span class="price">25k</span></div>
+        <div class="time-item" onclick="selectItem('time','15 phút – Tarot',30000)"><span>15 phút</span><span class="price">30k</span></div>
+        <div class="time-item" onclick="selectItem('time','20 phút – Tarot',35000)"><span>20 phút</span><span class="price">35k</span></div>
+        <div class="time-item" onclick="selectItem('time','30 phút – Tarot',45000)"><span>30 phút</span><span class="price">45k</span></div>
+        <div class="time-item" onclick="selectItem('time','40 phút – Tarot',50000)"><span>40 phút</span><span class="price">50k</span></div>
+        <div class="time-item" onclick="selectItem('time','50 phút – Tarot',55000)"><span>50 phút</span><span class="price">55k</span></div>
+        <div class="time-item" onclick="selectItem('time','60 phút – Tarot',60000)" style="grid-column:1"><span>60 phút</span><span class="price">60k</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lenormand -->
+  <div id="service-lenormand" class="service-content" style="display:none">
+    <div class="section">
+      <div class="service-header">
+        <div style="width:40px;height:40px;background:#1e1535;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-right:12px">🌿</div>
+        <div><h3>Lenormand</h3><p>Lenormand Cards</p></div>
+      </div>
+      <div class="section-header"><h2>Chủ đề hiện tại</h2><span class="badge">Hiện tại</span></div>
+      <div class="price-row" onclick="selectItem('topic','Người Yêu Hiện Tại – Lenormand',45000)"><span>Người Yêu Hiện Tại</span><span class="price">45k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Người Yêu Cũ – Lenormand',45000)"><span>Người Yêu Cũ</span><span class="price">45k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Bạn Bè – Lenormand',45000)"><span>Bạn Bè</span><span class="price">45k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Học Tập – Lenormand',45000)"><span>Học Tập</span><span class="price">45k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Công Việc Hiện Tại – Lenormand',45000)"><span>Công Việc Hiện Tại</span><span class="price">45k</span></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><h2>Chủ đề tương lai</h2><span class="badge">Tương lai</span></div>
+      <div class="price-row" onclick="selectItem('topic','Người Yêu Tương Lai – Lenormand',55000)"><span>Người Yêu Tương Lai</span><span class="price">55k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Học Tập Tương Lai – Lenormand',55000)"><span>Học Tập Tương Lai</span><span class="price">55k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Công Việc Tương Lai – Lenormand',55000)"><span>Công Việc Tương Lai</span><span class="price">55k</span></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><h2>Gói thời gian</h2><span class="badge">Linh hoạt</span></div>
+      <div class="time-grid">
+        <div class="time-item" onclick="selectItem('time','10 phút – Lenormand',30000)"><span>10 phút</span><span class="price">30k</span></div>
+        <div class="time-item" onclick="selectItem('time','15 phút – Lenormand',40000)"><span>15 phút</span><span class="price">40k</span></div>
+        <div class="time-item" onclick="selectItem('time','20 phút – Lenormand',45000)"><span>20 phút</span><span class="price">45k</span></div>
+        <div class="time-item" onclick="selectItem('time','30 phút – Lenormand',50000)"><span>30 phút</span><span class="price">50k</span></div>
+        <div class="time-item" onclick="selectItem('time','40 phút – Lenormand',55000)"><span>40 phút</span><span class="price">55k</span></div>
+        <div class="time-item" onclick="selectItem('time','50 phút – Lenormand',60000)"><span>50 phút</span><span class="price">60k</span></div>
+        <div class="time-item" onclick="selectItem('time','60 phút – Lenormand',65000)" style="grid-column:1"><span>60 phút</span><span class="price">65k</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bài Tây -->
+  <div id="service-baitay" class="service-content" style="display:none">
+    <div class="section">
+      <div class="service-header">
+        <div style="width:40px;height:40px;background:#1e1535;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-right:12px">🃏</div>
+        <div><h3>Bài Tây</h3><p>Playing Cards</p></div>
+      </div>
+      <div class="section-header"><h2>Chủ đề hiện tại</h2><span class="badge">Hiện tại</span></div>
+      <div class="price-row" onclick="selectItem('topic','Người Yêu Hiện Tại – Bài Tây',35000)"><span>Người Yêu Hiện Tại</span><span class="price">35K</span></div>
+      <div class="price-row" onclick="selectItem('topic','Người Yêu Cũ – Bài Tây',35000)"><span>Người Yêu Cũ</span><span class="price">35K</span></div>
+      <div class="price-row" onclick="selectItem('topic','Bạn Bè – Bài Tây',35000)"><span>Bạn Bè</span><span class="price">35k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Gia Đình – Bài Tây',35000)"><span>Gia Đình</span><span class="price">35k</span></div>
+      <div class="price-row" onclick="selectItem('topic','Công Việc Hiện Tại – Bài Tây',35000)"><span>Công Việc Hiện Tại</span><span class="price">35k</span></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><h2>Chủ đề tương lai</h2><span class="badge">Tương lai</span></div>
+      <div class="price-row" onclick="selectItem('topic','Người Yêu Tương Lai – Bài Tây',60000)"><span>Người Yêu Tương Lai</span><span class="price">60K</span></div>
+      <div class="price-row" onclick="selectItem('topic','Gia Đình Tương Lai – Bài Tây',60000)"><span>Gia Đình Tương Lai</span><span class="price">60K</span></div>
+      <div class="price-row" onclick="selectItem('topic','Công Việc Tương Lai – Bài Tây',60000)"><span>Công Việc Tương Lai</span><span class="price">60K</span></div>
+      <div class="price-row" onclick="selectItem('topic','Tổng Quan Tháng – Bài Tây',130000)"><span>Tổng Quan Tháng</span><span class="price">130k</span></div>
+    </div>
+    <div class="section">
+      <div class="section-header"><h2>Gói thời gian</h2><span class="badge">Linh hoạt</span></div>
+      <div class="time-grid">
+        <div class="time-item" onclick="selectItem('time','10 phút – Bài Tây',25000)"><span>10 phút</span><span class="price">25k</span></div>
+        <div class="time-item" onclick="selectItem('time','15 phút – Bài Tây',30000)"><span>15 phút</span><span class="price">30k</span></div>
+        <div class="time-item" onclick="selectItem('time','20 phút – Bài Tây',35000)"><span>20 phút</span><span class="price">35K</span></div>
+        <div class="time-item" onclick="selectItem('time','30 phút – Bài Tây',40000)"><span>30 phút</span><span class="price">40K</span></div>
+        <div class="time-item" onclick="selectItem('time','40 phút – Bài Tây',50000)"><span>40 phút</span><span class="price">50k</span></div>
+        <div class="time-item" onclick="selectItem('time','50 phút – Bài Tây',55000)"><span>50 phút</span><span class="price">55k</span></div>
+        <div class="time-item" onclick="selectItem('time','60 phút – Bài Tây',60000)" style="grid-column:1"><span>60 phút</span><span class="price">60k</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form đặt lịch -->
+  <div class="form-section">
+    <h2>📋 Thông tin đặt lịch</h2>
+    <div class="selection-summary" id="summary">
+      <p style="color:#9d86c0;font-style:italic">Vui lòng chọn chủ đề hoặc gói thời gian ở trên...</p>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Họ và tên *</label>
+        <input type="text" id="name" placeholder="Nguyễn Văn A">
+      </div>
+      <div class="form-group">
+        <label>Ngày sinh *</label>
+        <input type="date" id="dob">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Số điện thoại *</label>
+        <input type="tel" id="phone" placeholder="0901 234 567">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="example@email.com">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Câu hỏi / Vấn đề muốn xem</label>
+      <input type="text" id="question" placeholder="Nhập câu hỏi của bạn...">
+    </div>
+    <div class="form-group">
+      <label>Thời gian mong muốn</label>
+      <input type="datetime-local" id="preferred_time">
+    </div>
+    <div class="note-box" style="margin-bottom:14px">
+      <strong>📌 Lưu ý:</strong> Giá áp dụng cho 1 câu hỏi / 1 trải bài. Kết quả gửi qua email sau buổi xem.
+    </div>
+    <button class="btn-submit" onclick="submitBooking()">✦ XÁC NHẬN ĐẶT LỊCH</button>
+  </div>
 </div>
 
-<!-- LENORMAND -->
-<div class="section">
-  <div class="section-title">🔮 Lenormand</div>
-  <div id="lenormand" class="grid"></div>
+<!-- Modal QR -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h2>✦ Đặt Lịch Thành Công!</h2>
+    <p>Xuất trình mã QR này khi đến buổi xem</p>
+    <div id="qrcode"></div>
+    <div class="booking-info" id="booking-info"></div>
+    <p style="font-size:.75rem;color:#9d86c0;margin-bottom:16px">Mã QR chứa thông tin của bạn và chỉ admin mới có thể xác minh</p>
+    <button class="btn-close" onclick="closeModal()">Đóng</button>
+  </div>
 </div>
-
-<!-- CART -->
-<div class="cart">
-  <h3 id="total">0k</h3>
-  <button onclick="checkout()" class="btn">Thanh toán</button>
-</div>
-
-</div>
-
-<!-- MODAL -->
-<div id="modal" class="modal">
-<div class="modal-box">
-
-<div id="invoice"></div>
-
-<div class="right-actions">
-  <button onclick="downloadPDF()">Xuất PDF</button>
-  <button onclick="closeModal()">Đóng</button>
-</div>
-
-</div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
+const firebaseConfig={apiKey:"AIzaSyBSoO_b_Ff9lwHlt5t_CNZDb1D83u2NGxA",authDomain:"website-banhang-dichvu.firebaseapp.com",databaseURL:"https://website-banhang-dichvu-default-rtdb.firebaseio.com/",projectId:"website-banhang-dichvu",storageBucket:"website-banhang-dichvu.firebasestorage.app",messagingSenderId:"62025007292",appId:"1:62025007292:web:bb05c357775deb3b1990b9"};
+firebase.initializeApp(firebaseConfig);
+const db=firebase.database();
 
-const products = [
-  // ===== BÀI TÂY =====
-  { sku:"SKU1",  name:"Bạn Bè Tương Lai", type:"bai_tay", price:55 },
-  { sku:"SKU2",  name:"Công Việc Hiện Tại", type:"bai_tay", price:30 },
-  { sku:"SKU3",  name:"Công Việc Tương Lai", type:"bai_tay", price:55 },
-  { sku:"SKU4",  name:"Học Tập Hiện Tại", type:"bai_tay", price:30 },
-  { sku:"SKU5",  name:"Học Tập Tương Lai", type:"bai_tay", price:55 },
-  { sku:"SKU6",  name:"Người Yêu Cũ Hiện Tại", type:"bai_tay", price:30 },
-  { sku:"SKU7",  name:"Người Yêu Hiện Tại", type:"bai_tay", price:30 },
-  { sku:"SKU8",  name:"Người Yêu Tương Lai", type:"bai_tay", price:55 },
-  { sku:"SKU9",  name:"Bạn Bè Hiện Tại", type:"bai_tay", price:30 },
+let selected={topic:null,topicPrice:0,time:null,timePrice:0};
 
-  // ===== TIME (BÀI TÂY) =====
-  { sku:"SKU10", name:"10 Phút", type:"bai_tay", price:20 },
-  { sku:"SKU11", name:"15 Phút", type:"bai_tay", price:30 },
-  { sku:"SKU12", name:"20 Phút", type:"bai_tay", price:35 },
-  { sku:"SKU13", name:"30 Phút", type:"bai_tay", price:40 },
-  { sku:"SKU14", name:"50 Phút", type:"bai_tay", price:45 },
-  { sku:"SKU15", name:"60 Phút", type:"bai_tay", price:55 },
-  { sku:"SKU16", name:"Tổng Quan Tháng", type:"bai_tay", price:70 },
+function switchService(s){
+  document.querySelectorAll('.service-content').forEach(el=>el.style.display='none');
+  document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('service-'+s).style.display='block';
+  event.target.classList.add('active');
+  selected={topic:null,topicPrice:0,time:null,timePrice:0};
+  updateSummary();
+}
 
-  // ===== LENORMAND =====
-  { sku:"SKU17", name:"Bạn Bè Hiện Tại", type:"lenormand", price:35 },
-  { sku:"SKU18", name:"Bạn Bè Tương Lai", type:"lenormand", price:60 },
-  { sku:"SKU19", name:"Công Việc Hiện Tại", type:"lenormand", price:35 },
-  { sku:"SKU20", name:"Công Việc Tương Lai", type:"lenormand", price:60 },
-  { sku:"SKU21", name:"Học Tập Hiện Tại", type:"lenormand", price:35 },
-  { sku:"SKU22", name:"Học Tập Tương Lai", type:"lenormand", price:60 },
-  { sku:"SKU23", name:"Người Yêu Cũ Hiện Tại", type:"lenormand", price:35 },
-  { sku:"SKU24", name:"Người Yêu Cũ Tương Lai", type:"lenormand", price:60 },
-  { sku:"SKU25", name:"Người Yêu Hiện Tại", type:"lenormand", price:35 },
-  { sku:"SKU26", name:"Người Yêu Tương Lai", type:"lenormand", price:60 },
-
-  // ===== HEALTH =====
-  { sku:"SKU27", name:"Sức Khoẻ Hiện Tại", type:"lenormand", price:85 },
-  { sku:"SKU28", name:"Sức Khoẻ Tương Lai", type:"lenormand", price:120 },
-
-  // ===== TIME (LENORMAND) =====
-  { sku:"SKU29", name:"10 Phút", type:"lenormand", price:30 },
-  { sku:"SKU30", name:"15 Phút", type:"lenormand", price:40 },
-  { sku:"SKU31", name:"20 Phút", type:"lenormand", price:45 },
-  { sku:"SKU32", name:"30 Phút", type:"lenormand", price:50 },
-  { sku:"SKU33", name:"40 Phút", type:"lenormand", price:55 },
-  { sku:"SKU34", name:"50 Phút", type:"lenormand", price:60 },
-  { sku:"SKU35", name:"60 Phút", type:"lenormand", price:65 }
-];
-
-// ===================== CART =====================
-let cart = JSON.parse(localStorage.getItem("cart")||"{}");
-function save(){localStorage.setItem("cart",JSON.stringify(cart))}
-
-// ===================== RENDER =====================
-function render(){
-  const baiTayBox=document.getElementById("baiTay");
-  const lenormandBox=document.getElementById("lenormand");
-
-  baiTayBox.innerHTML="";
-  lenormandBox.innerHTML="";
-
-  products.forEach(p=>{
-    const html=`
-    <div class="card">
-      <div>${p.name}</div>
-      <div class="price">${p.price}k</div>
-      <button class="btn" onclick="add('${p.sku}')">Chọn Ngay</button>
-    </div>`;
-
-    if(p.type==="bai_tay"){
-      baiTayBox.innerHTML+=html;
-    }else{
-      lenormandBox.innerHTML+=html;
+function selectItem(type,name,price){
+  selected[type]=name;
+  selected[type+'Price']=price;
+  document.querySelectorAll('.price-row,.time-item').forEach(el=>{
+    if(el.getAttribute('onclick')&&el.getAttribute('onclick').includes("'"+name+"'")){
+      el.classList.add('selected');
+    } else if(el.getAttribute('onclick')&&el.getAttribute('onclick').includes("'"+type+"'")){
+      el.classList.remove('selected');
     }
   });
-}
-render();
-
-// ===================== ADD =====================
-function add(sku){
-  if(!cart[sku]) cart[sku]={...products.find(p=>p.sku===sku),qty:0};
-  cart[sku].qty++;
-  save();
-  renderCart();
+  updateSummary();
 }
 
-// ===================== CART =====================
-function renderCart(){
-  let total=0;
-  Object.values(cart).forEach(i=>{
-    total+=i.qty*i.price;
-  });
-  document.getElementById("total").innerText="Tổng: "+total+"k";
-}
-renderCart();
-
-// ===================== QR =====================
-function generateQR(total, orderId){
- const amount = total * 1000;
- return `https://img.vietqr.io/image/VCB-7876159680-compact.png?amount=${amount}&addInfo=DH${orderId}`;
+function updateSummary(){
+  const el=document.getElementById('summary');
+  if(!selected.topic&&!selected.time){
+    el.innerHTML='<p style="color:#9d86c0;font-style:italic">Vui lòng chọn chủ đề hoặc gói thời gian ở trên...</p>';
+    return;
+  }
+  let html='';
+  if(selected.topic) html+=`<p>📌 Chủ đề: <span class="item">${selected.topic}</span> — <span style="color:#d4af37">${(selected.topicPrice/1000).toFixed(0)}k</span></p>`;
+  if(selected.time) html+=`<p>⏱ Thời gian: <span class="item">${selected.time}</span> — <span style="color:#d4af37">${(selected.timePrice/1000).toFixed(0)}k</span></p>`;
+  const total=selected.topicPrice+selected.timePrice;
+  if(total>0) html+=`<p class="total">💰 Tổng: ${total.toLocaleString('vi-VN')}đ</p>`;
+  el.innerHTML=html;
 }
 
-// ===================== CHECKOUT =====================
-function checkout(){
- if(Object.keys(cart).length===0){alert("Giỏ trống");return;}
+function generateId(){return 'BK'+Date.now().toString(36).toUpperCase().slice(-6);}
 
- const orderId=Date.now();
- let total=0;
- let rows="";
-
- Object.values(cart).forEach(i=>{
-  total+=i.qty*i.price;
-  rows+=`
-  <tr>
-    <td>${i.name}</td>
-    <td>${i.qty}</td>
-    <td>${i.price}</td>
-    <td>${i.qty*i.price}</td>
-  </tr>`;
- });
-
- const qr=generateQR(total,orderId);
-
- document.getElementById("invoice").innerHTML=`
-<div id="invoiceBox">
-
-<h2 style="text-align:center">HÓA ĐƠN</h2>
-
-<div>Mã: DH${orderId}</div>
-
-<hr>
-
-<table>
-<tr><th>SP</th><th>SL</th><th>Giá</th><th>Tiền</th></tr>
-${rows}
-</table>
-
-<h3 style="text-align:right">Tổng: ${total}k</h3>
-
-<div style="text-align:center;margin-top:20px">
-<img src="${qr}" width="220"/>
-</div>
-
-</div>`;
-
- document.getElementById("modal").style.display="block";
+function submitBooking(){
+  const name=document.getElementById('name').value.trim();
+  const dob=document.getElementById('dob').value;
+  const phone=document.getElementById('phone').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const question=document.getElementById('question').value.trim();
+  const ptime=document.getElementById('preferred_time').value;
+  if(!name||!dob||!phone){alert('Vui lòng nhập họ tên, ngày sinh và số điện thoại!');return;}
+  if(!selected.topic&&!selected.time){alert('Vui lòng chọn ít nhất 1 dịch vụ!');return;}
+  const bookingId=generateId();
+  const total=selected.topicPrice+selected.timePrice;
+  const booking={id:bookingId,name,dob,phone,email,question,preferred_time:ptime,topic:selected.topic||'',topicPrice:selected.topicPrice,timePackage:selected.time||'',timePrice:selected.timePrice,total,status:'pending',created_at:new Date().toISOString()};
+  db.ref('bookings/'+bookingId).set(booking).then(()=>{
+    showQR(booking);
+  }).catch(e=>{alert('Lỗi lưu dữ liệu: '+e.message);});
 }
 
-// ===================== PDF =====================
-function downloadPDF(){
- html2pdf().from(document.getElementById("invoiceBox")).save();
+function showQR(b){
+  document.getElementById('qrcode').innerHTML='';
+  const qrData=JSON.stringify({id:b.id,name:b.name,dob:b.dob,phone:b.phone,topic:b.topic,time:b.timePackage,total:b.total});
+  new QRCode(document.getElementById('qrcode'),{text:qrData,width:160,height:160,colorDark:'#000',colorLight:'#fff'});
+  const dobFormatted=b.dob?new Date(b.dob).toLocaleDateString('vi-VN'):'';
+  document.getElementById('booking-info').innerHTML=`
+    <p class="booking-id" style="text-align:center;margin-bottom:10px">Mã: ${b.id}</p>
+    <p>👤 Họ tên: <span>${b.name}</span></p>
+    <p>🎂 Ngày sinh: <span>${dobFormatted}</span></p>
+    <p>📞 SĐT: <span>${b.phone}</span></p>
+    ${b.topic?`<p>📌 Chủ đề: <span>${b.topic}</span></p>`:''}
+    ${b.timePackage?`<p>⏱ Thời gian: <span>${b.timePackage}</span></p>`:''}
+    <p>💰 Tổng: <span style="color:#d4af37">${b.total.toLocaleString('vi-VN')}đ</span></p>`;
+  document.getElementById('modal').classList.add('active');
 }
 
-// ===================== CLOSE =====================
-function closeModal(){
- document.getElementById("modal").style.display="none";
- cart={};
- save();
- renderCart();
-}
-
+function closeModal(){document.getElementById('modal').classList.remove('active');}
 </script>
-
 </body>
 </html>
