@@ -495,7 +495,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-// Expose to window for non-module JS
 window._fb = { auth, db, signInWithEmailAndPassword, signOut, onAuthStateChanged, ref, push, set, get, update, onValue, query, orderByChild };
 
 onAuthStateChanged(auth, user => {
@@ -546,7 +545,7 @@ const DATA={
       {label:'Gói Thời Gian',tag:'Linh hoạt',isTime:true,items:[
         {sku:'TR09',name:'10 phút',price:25},{sku:'TR10',name:'15 phút',price:30},
         {sku:'TR11',name:'20 phút',price:35},{sku:'TR12',name:'30 phút',price:45},
-        {sku:'TR13',name:'40 phút',price:50-},{sku:'TR14',name:'50 phút',price:55},
+        {sku:'TR13',name:'40 phút',price:50},{sku:'TR14',name:'50 phút',price:55},
         {sku:'TR15',name:'60 phút',price:60},
       ]}
     ]},
@@ -943,7 +942,6 @@ async function loadOrders(){
       snap.forEach(child=>{
         _allOrders.push({_key:child.key,...child.val()});
       });
-      // Sort newest first
       _allOrders.sort((a,b)=>(b.createdAtMs||0)-(a.createdAtMs||0));
     }
     renderAdminTable();
